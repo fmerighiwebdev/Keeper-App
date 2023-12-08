@@ -3,7 +3,7 @@ import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Home from './components/Home';
 import Header from './components/Header';

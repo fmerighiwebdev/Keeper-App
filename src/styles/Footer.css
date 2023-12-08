@@ -1,0 +1,38 @@
+footer {
+    background-color: rgba(128, 128, 128, 0.151);
+    padding: 1rem 0;
+}
+
+.footer-text {
+    font-size: .875rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    font-family: var(--ff);
+    text-align: center;
+    margin: 0 0 .5rem 0;
+}
+
+.credits {
+    font-size: .875rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    font-family: var(--ff);
+    text-align: center;
+    margin: 0;
+}
+
+.credits a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 400;
+    transition: all .3s ease-in-out;
+}
+
+@media (min-width: 1044px) {
+    footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        left: 0;
+    }
+}

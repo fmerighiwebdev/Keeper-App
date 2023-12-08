@@ -1,0 +1,36 @@
+.home-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.home-title {
+    font-size: clamp(2rem, 1.824rem + 0.723vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-family: var(--ff);
+    margin-bottom: 2rem;
+}
+
+.home-title span {
+    color: var(--primary-color);
+}
+
+.home-desc {
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    font-family: var(--ff);
+}
+
+@media (max-width: 992px) {
+    .home-section {
+        margin: 1rem 0 1rem 0;
+    }
+
+    .home-img {
+        margin-top: 2rem;
+        width: min(500px, 90%);
+    }
+}

@@ -4,45 +4,48 @@ import axios from 'axios';
 import TipsAndUpdatesTwoToneIcon from '@mui/icons-material/TipsAndUpdatesTwoTone';
 
 function AuthForm(props) {
+    // Stato che contiene i dati del form
     const [formData, setFormData] = useState({
         email: '',
+        username: '',
         password: '',
         confirmPassword: '',
     });
     
+    // Funzione che gestisce l'invio del form
     async function handleSubmit(event) {
         event.preventDefault();
     
         try {
           let response;
     
-          // Invia la richiesta POST al server contenente i dati del form
+          // Invia una richiesta POST al server contenente i dati del form
           if (props.type === 'login') {
-            response = await axios.post('http://localhost:5000/auth/login', formData);
+            response = await axios.post('http://localhost:5000/api/login', formData);
           } else if (props.type === 'signup') {
-            response = await axios.post('http://localhost:5000/auth/signup', formData);
+            response = await axios.post('http://localhost:5000/api/signup', formData);
           }
-    
-          // Risposta dal server
+
           console.log(response.data);
         } catch (error) {
-          console.error('Errore durante la richiesta POST:', error);
+          console.log(error.response.data);
         }
 
-        // Resetta il form
+        // Resetta il form dopo l'invio
         setFormData({
-            email: '',
-            password: '',
-            confirmPassword: '',
+          email: '',
+          username: '',
+          password: '',
+          confirmPassword: '',
         });
     };
     
+    // Funzione che gestisce i cambiamenti dei campi del form
     function handleChange(event) {
         setFormData({ ...formData, [event.target.name]: event.target.value });
     };
-
-    console.log(formData);
     
+    // Renderizza il form
     return (
         <>
           <div className="d-flex justify-content-center">
@@ -56,6 +59,12 @@ function AuthForm(props) {
               <label htmlFor="email">Email</label>
               <input className="form-control" type="email" name="email" value={formData.email} onChange={handleChange} />
             </div>
+            {props.type === 'signup' && (
+              <div className="form-group">
+                <label htmlFor="username">Username</label>
+                <input className="form-control" type="text" name="username" value={formData.username} onChange={handleChange} />
+              </div>
+            )}
             <div className="form-group">
               <label htmlFor="password">Password</label>
               <input className="form-control" type="password" name="password" value={formData.password} onChange={handleChange} />

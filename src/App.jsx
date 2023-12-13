@@ -10,9 +10,11 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Login from './components/Login';
 import Signup from './components/Signup';
-
+import ProtectedRoute from './components/ProtectedRoute';
+import Dashboard from './components/Dashboard';
 
 function App() {
+
   return (
     <Router>
       <Routes>
@@ -38,9 +40,20 @@ function App() {
           </>
           }
         />
+        <Route
+          path="/dashboard"
+          element={
+            <>
+              <Header type="auth" />
+              <ProtectedRoute element={<Dashboard />} />
+              <Footer />
+            </>
+          }
+        />
       </Routes>
     </Router>
   );
+
 }
 
 export default App;

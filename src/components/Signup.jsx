@@ -5,15 +5,15 @@ import AuthForm from "./AuthForm.jsx";
 
 import "../styles/Auth.css";
 
-function Login() {
+function Signup() {
     return (
         <section className="auth-section">
-            <div class="auth-card shadow">
+            <div className="auth-card shadow">
                 <AuthForm type="signup" />
                 <p>Already have an account? <Link className="redirect-link" to="/login">Log In</Link></p>
             </div>
         </section>
-      );
+    );
 }
 
-export default Login;
+export default Signup;

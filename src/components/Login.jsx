@@ -5,7 +5,7 @@ import AuthForm from "./AuthForm.jsx";
 
 import "../styles/Auth.css";
 
-function Login() {
+function Login(props) {
     return (
         <section className="auth-section">
             <div className="auth-card shadow">

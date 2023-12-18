@@ -6,6 +6,7 @@ import TipsAndUpdatesTwoToneIcon from '@mui/icons-material/TipsAndUpdatesTwoTone
 import Alert from '@mui/material/Alert';
 
 function AuthForm(props) {
+    const navigate = useNavigate();
     // Stato che contiene i dati del form
     const [formData, setFormData] = useState({
         email: '',
@@ -33,6 +34,10 @@ function AuthForm(props) {
     
           if (props.type === 'login') {
             response = await axios.post('http://localhost:5000/api/login', formData);
+
+            sessionStorage.setItem('token', response.data.token);
+
+            navigate('/dashboard');
           } else if (props.type === 'signup') {
             response = await axios.post('http://localhost:5000/api/signup', formData);
           }

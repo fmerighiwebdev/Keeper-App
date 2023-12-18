@@ -4,60 +4,68 @@ import { Link } from 'react-router-dom';
 
 import { Container } from 'react-bootstrap';
 import TipsAndUpdatesTwoToneIcon from '@mui/icons-material/TipsAndUpdatesTwoTone';
-import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
+import { checkToken } from "../client-utils.js";
 
 import '../styles/Header.css';
 import 'animate.css';
 
 function Header(props) {
     const [isActive, setActive] = useState(false);
+    const token = sessionStorage.getItem('token');
+    const [isTokenValid, setIsTokenValid] = React.useState(null);
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        checkToken(token, setIsTokenValid, setLoading);
+    }, [token]);
 
     function handleHamClick() {
         setActive(!isActive);
     }
 
-    if (props.type === "home") {
-        return (
-            <>
-            <header className="shadow">
+    if (loading) {
+        return ( 
+            <main className="loading-page">
+                <div className="spinner-grow" style={{ width: '2rem', height: '2rem', color: 'orange'}} role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </main>
+        );
+    }
+
+    return (
+        <>
+        <header>
             <Container>
                 <nav>
                     <div>
                         <Link className="header-logo" to="/">Keeper App <TipsAndUpdatesTwoToneIcon /></Link>
                     </div>
-                    <div className="header-links">
-                        <Link className="navbar-link" to="/login">Log In</Link>
-                        <Link className="navbar-link" to="/signup">Sign Up</Link>
-                    </div>
-                    <div onClick={handleHamClick} className="hamburger">
-                        <div className={isActive ? "bar active" : "bar"}></div>
-                        <div className={isActive ? "bar active" : "bar"}></div>
-                        <div className={isActive ? "bar active" : "bar"}></div>
-                    </div>
+                    {props.type === "home" && !isTokenValid ? (
+                        <div className="header-links">
+                            <Link className="navbar-link" to="/login">Log In</Link>
+                            <Link className="navbar-link" to="/signup">Sign Up</Link>
+                        </div>
+                    ) : null}
+                    {isTokenValid ? <p>Prova prova</p> : null}
+                    {props.type === "home" && !isTokenValid ? (
+                        <div onClick={handleHamClick} className="hamburger">
+                            <div className={isActive ? "bar active" : "bar"}></div>
+                            <div className={isActive ? "bar active" : "bar"}></div>
+                            <div className={isActive ? "bar active" : "bar"}></div>
+                        </div>
+                    ) : null}
                 </nav>
             </Container>
-            </header>
-            {isActive ? <div className="mobile-menu animate__animated animate__fadeInDown animate__faster">
+        </header>
+        {isActive && props.type === "home" ? (
+            <div className="mobile-menu animate__animated animate__fadeInDown animate__faster">
                 <Link className="navbar-link" to="/login">Log In</Link>
                 <Link className="navbar-link" to="/signup">Sign Up</Link>
-            </div> : null}
-            </>
-        );
-    } else if (props.type === "auth") {
-        return (
-            <>
-            <header className="shadow">
-            <Container>
-                <nav>
-                    <div>
-                        <Link className="header-logo" to="/"><ArrowBackTwoToneIcon/> Back to Home</Link>
-                    </div>
-                </nav>
-            </Container>
-            </header>
-            </>
-        );
-    }
+            </div>
+        ) : null}
+        </>
+    );
 
 }
 

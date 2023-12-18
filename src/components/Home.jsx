@@ -5,8 +5,28 @@ import { Container } from 'react-bootstrap';
 import '../styles/Home.css';
 import homeImg from '../images/home-image.svg';
 import { Link } from "react-router-dom";
+import { checkToken } from "../client-utils.js";
 
 function Home() {
+
+    const token = sessionStorage.getItem('token');
+    const [isTokenValid, setIsTokenValid] = React.useState(null);
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        checkToken(token, setIsTokenValid, setLoading);
+    }, [token]);
+
+    if (loading) {
+        return ( 
+            <main className="loading-page">
+                <div className="spinner-grow" style={{ width: '2rem', height: '2rem', color: 'orange'}} role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </main>
+        );
+    }
+
     return (
         <section className="home-section">
         <Container>
@@ -16,7 +36,7 @@ function Home() {
                     and activities in the <span><em>BEST</em></span> possible way.</h1>
                     <p className="home-desc">With Keeper App&copy; you can organize and manage your reminders WHERE 
                     and WHENEVER you want, in an easy, intuitive and fast way.</p>
-                    <Link className="home-btn" to="/signup">Sign Up For Free</Link>
+                    <Link className="home-btn" to={isTokenValid ? '/dashboard' : '/signup'}>{isTokenValid ? 'Go to dashboard' : 'Sign up for free'}</Link>
                 </div>
                 <div className="col-12 col-lg-6 d-flex justify-content-center">
                     <img className="home-img" src={homeImg} alt="Keeper App" /> 

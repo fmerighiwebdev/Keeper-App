@@ -10,35 +10,40 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import Dashboard from './components/Dashboard';
 
 function App() {
 
   return (
     <Router>
-      <Routes>
-        <Route path="/login/*" element={
-          <>
-            <Header type="auth" />
-            <Login />
-          </>
-        }
-        />
-        <Route path="/signup/*" element={
-          <>
-            <Header type="auth" />
-            <Signup />
-          </>
-        }
-        />
-        <Route path="/*" element={
-          <>
-            <Header type="home" />
-            <Home />
-            <Footer />
-          </>
+        <Routes>
+          <Route path="/login/*" element={
+            <>
+              <Header type="auth" />
+              <Login />
+            </>
           }
-        />
-      </Routes>
+          />
+          <Route path="/signup/*" element={
+            <>
+              <Header type="auth" />
+              <Signup />
+            </>
+          }
+          />
+          <Route path="/*" element={
+            <>
+              <Header type="home" />
+              <Home />
+              <Footer />
+            </>
+            }
+          />
+          <Route path="/dashboard/*" element={
+            <Dashboard />
+          }
+          />
+        </Routes>
     </Router>
   );
 

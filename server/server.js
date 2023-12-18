@@ -9,7 +9,7 @@ import JWTStrategy from 'passport-jwt';
 import session from 'express-session';
 import jwt from 'jsonwebtoken';
 
-import { findUser, findUserById, createUser } from './utils.js';
+import { findUser, findUserById, createUser } from './server-utils.js';
 
 // Definizione istanze
 const app = express();
@@ -100,6 +100,7 @@ passport.use(new JWTStrategy.Strategy({
 // Routes
 
 // Richiesta POST per il login
+// Utilizza la strategia di autenticazione "login"
 app.post('/api/login', (req, res, next) => {
     passport.authenticate('login', (error, user, info) => {
         if (error) {
@@ -112,8 +113,7 @@ app.post('/api/login', (req, res, next) => {
             if (error) {
                 return res.status(500).json({ error: error.message });
             }
-            const token = jwt.sign({ user }, process.env.JWT_SECRET, { expiresIn: '2m' });
-            res.cookie('jwtToken', token, { httpOnly: true });
+            const token = jwt.sign({ user }, process.env.JWT_SECRET, { expiresIn: '30s' });
             return res.status(200).json({ message: info.message, user: user, token: token });
         });
     })(req, res, next);
@@ -142,18 +142,32 @@ app.post('/api/signup', async (req, res) => {
     }
 });
 
+// Richiesta GET per ottenere i dati dell'utente
+// Utilizza la strategia di autenticazione "jwt" e richiede il token nell'header della richiesta
 app.get('/api/user', passport.authenticate('jwt', { session: false }), (req, res) => {
     res.status(200).json({ user: req.user });
 });
 
+// Richiesta GET per il logout
+// Utilizza la strategia di autenticazione "jwt" e richiede il token nell'header della richiesta
 app.get('/api/logout', passport.authenticate('jwt', { session: false }), (req, res) => {
     req.logout(error => {
         if (error) {
             return res.status(500).json({ error: error.message });
         }
     });
-    res.clearCookie('jwtToken');
+    sessionStorage.removeItem('token');
     res.status(200).json({ message: 'User logged out successfully' });
+});
+
+// Richiesta GET per la validazione del token
+// Utilizza la strategia di autenticazione "jwt" e richiede il token nell'header della richiesta
+app.get('/api/validateToken', passport.authenticate('jwt', { session: false }), (req, res) => {
+    try {
+        res.status(200).json({ message: 'Token is valid' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 });
 
 app.listen(port, '0.0.0.0', () => {

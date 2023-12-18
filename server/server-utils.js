@@ -1,5 +1,5 @@
 import db from './server.js';
-import { jwtDecode } from 'jwt-decode';
+import axios from 'axios';
 
 // Funzione che cerca un utente nel database tramite email
 async function findUser(email) {

@@ -9,7 +9,7 @@ import JWTStrategy from 'passport-jwt';
 import session from 'express-session';
 import jwt from 'jsonwebtoken';
 
-import { findUser, findUserById, createUser, createNote } from './server-utils.js';
+import { findUser, findUserById, createUser, createNote, getNotes } from './server-utils.js';
 
 // Definizione istanze
 const app = express();
@@ -149,6 +149,15 @@ app.post('/api/createNote', passport.authenticate('jwt', { session: false }), as
         await createNote(title, content, req.user.id);
         return res.status(200).json({ message: 'Note created successfully' });
     } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+
+app.get('/api/getNotes', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    try {
+        const notes = await getNotes(req.user.id);
+        return res.status(200).json({ notes: notes });
+    } catch (error) {
         console.log(error);
         return res.status(500).json({ error: error.message });
     }
@@ -168,7 +177,6 @@ app.get('/api/logout', passport.authenticate('jwt', { session: false }), (req, r
             return res.status(500).json({ error: error.message });
         }
     });
-    sessionStorage.removeItem('token');
     res.status(200).json({ message: 'User logged out successfully' });
 });
 

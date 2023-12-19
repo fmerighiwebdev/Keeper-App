@@ -9,6 +9,7 @@ header {
 
 nav {
     display: flex;
+    position: relative;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 0;
@@ -58,6 +59,36 @@ nav {
 .hamburger {
     display: none;
     cursor: pointer;
+}
+
+.profile-icon {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.drop-menu {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    padding: .75rem 1.25rem;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.dropdown-item {
+    text-decoration: none;
+    color: rgba(187, 1, 1, 0.795);
+    border-radius: 5px;
+    font-weight: 400;
+    padding: 0 .5rem 0 .5rem;
+    font-family: var(--ff);
+    transition: all .3s ease-in-out;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(255, 95, 95, 0.295);
+    color: rgba(187, 1, 1, 0.795);
 }
 
 @media screen and (max-width: 576px) {

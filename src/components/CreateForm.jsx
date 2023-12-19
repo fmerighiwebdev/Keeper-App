@@ -28,6 +28,9 @@ function CreateForm(props) {
                 headers: { Authorization: `Bearer ${token}` } 
             });
             console.log(response.data);
+
+            props.setIsActive(false);
+            window.location.reload();
         } catch (error) {
             console.log(error);
         }

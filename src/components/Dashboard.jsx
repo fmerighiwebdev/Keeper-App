@@ -3,8 +3,9 @@ import FailedAuth from './FailedAuth';
 import "../styles/Dashboard.css";
 import { Container } from "react-bootstrap";
 import CreateIcon from '@mui/icons-material/Create';
-import { checkToken, getUser } from "../client-utils";
+import { checkToken, getUser, getNotes } from "../client-utils";
 import CreateForm from "./CreateForm";
+import Note from "./Note";
 
 function Dashboard() {
 
@@ -12,51 +13,20 @@ function Dashboard() {
     const [isTokenValid, setIsTokenValid] = React.useState(null);
     const [loading, setLoading] = React.useState(true);
     const [user, setUser] = React.useState(null);
-    const [isActive, setIsActive] = React.useState(false);
-
-    const notes = [
-        {
-            id: 1,
-            title: 'Long Text',
-            content: 'Lorem ipsum dolor sit amet consectetur adipi lorem ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consectetur adipi lorem ipsum dolor sit amet consectetur'
-        },
-        {
-            id: 2,
-            title: 'Note 2',
-            content: 'Note 2 content'
-        },
-        {
-            id: 3,
-            title: 'Note 3',
-            content: 'Note 3 content'
-        },
-        {
-            id: 4,
-            title: 'Note 4',
-            content: 'Note 4 content'
-        },
-        {
-            id: 5,
-            title: 'Note 5',
-            content: 'Note 5 content'
-        },
-        {
-            id: 6,
-            title: 'Note 6',
-            content: 'Note 6 content'
-        }
-    ];
+    const [isCreateActive, setIsCreateActive] = React.useState(false);
+    const [notes, setNotes] = React.useState([]);
 
     React.useEffect(() => {
         checkToken(token, setIsTokenValid, setLoading);
         getUser(token, setUser, setLoading);
+        getNotes(token, setNotes, setLoading);
     }, [token]);
 
-    console.log(user);
-
     function handleCreateClick() {
-        setIsActive(true);
+        setIsCreateActive(true);
     }
+
+    
 
     if (loading) {
         return ( 
@@ -81,10 +51,7 @@ function Dashboard() {
                                         {notes.length > 0 ? (
                                             <>
                                                 {notes.map(note => (
-                                                    <div className="note" key={note.id}>
-                                                        <h2>{note.title}</h2>
-                                                        <p>{note.content}</p>
-                                                    </div>
+                                                    <Note title={note.title} content={note.content} key={note.id} />
                                                 ))}
                                             </>
                                         ) : <p>You don't have any notes yet</p>}
@@ -96,10 +63,10 @@ function Dashboard() {
                     </>
                 ) : <FailedAuth /> }
             </Container>
-            {isActive ? (
+            {isCreateActive ? (
                 <div className="overlay-container">
                     <div className="overlay shadow">
-                        <CreateForm setIsActive={setIsActive} />
+                        <CreateForm setIsActive={setIsCreateActive} />
                     </div>
                 </div>
             ) : null}

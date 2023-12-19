@@ -21,4 +21,9 @@ async function createNote(title, content, user_id) {
     await db.query('INSERT INTO notes (title, content, user_id) VALUES ($1, $2, $3)', [title, content, user_id]);
 }
 
-export { findUser, findUserById, createUser, createNote };
+async function getNotes(user_id) {
+    const results = await db.query('SELECT * FROM notes WHERE user_id = $1', [user_id]);
+    return results.rows;
+}
+
+export { findUser, findUserById, createUser, createNote, getNotes };

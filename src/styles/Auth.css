@@ -55,7 +55,6 @@
 }
 
 .form-control:focus {
-    border-color: var(--primary-color);
     box-shadow: 0 0 5px var(--primary-color);
 }
 
@@ -67,6 +66,22 @@
     border-radius: 5px;
     color: rgb(255, 51, 0);
     font-family: var(--ff);
+}
+
+.failed-auth {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.failed-auth p {
+    font-family: var(--ff);
+    font-weight: 300;
+    font-size: 1.125rem;
+    text-align: center;
 }
 
 @media (max-width: 768px) {

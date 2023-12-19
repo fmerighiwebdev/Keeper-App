@@ -17,4 +17,8 @@ async function createUser(email, username, password) {
     await db.query('INSERT INTO users (email, username, password) VALUES ($1, $2, $3)', [email, username, password]);
 }
 
-export { findUser, findUserById, createUser };
+async function createNote(title, content, user_id) {
+    await db.query('INSERT INTO notes (title, content, user_id) VALUES ($1, $2, $3)', [title, content, user_id]);
+}
+
+export { findUser, findUserById, createUser, createNote };

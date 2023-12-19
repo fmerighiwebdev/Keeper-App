@@ -19,14 +19,14 @@ function App() {
         <Routes>
           <Route path="/login/*" element={
             <>
-              <Header type="auth" />
+              <Header />
               <Login />
             </>
           }
           />
           <Route path="/signup/*" element={
             <>
-              <Header type="auth" />
+              <Header />
               <Signup />
             </>
           }
@@ -40,7 +40,10 @@ function App() {
             }
           />
           <Route path="/dashboard/*" element={
-            <Dashboard />
+            <>
+              <Header />
+              <Dashboard />
+            </>
           }
           />
         </Routes>

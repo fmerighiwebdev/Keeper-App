@@ -9,7 +9,7 @@ import JWTStrategy from 'passport-jwt';
 import session from 'express-session';
 import jwt from 'jsonwebtoken';
 
-import { findUser, findUserById, createUser } from './server-utils.js';
+import { findUser, findUserById, createUser, createNote } from './server-utils.js';
 
 // Definizione istanze
 const app = express();
@@ -113,7 +113,7 @@ app.post('/api/login', (req, res, next) => {
             if (error) {
                 return res.status(500).json({ error: error.message });
             }
-            const token = jwt.sign({ user }, process.env.JWT_SECRET, { expiresIn: '30s' });
+            const token = jwt.sign({ user }, process.env.JWT_SECRET, { expiresIn: '30m' });
             return res.status(200).json({ message: info.message, user: user, token: token });
         });
     })(req, res, next);
@@ -139,6 +139,18 @@ app.post('/api/signup', async (req, res) => {
         }
     } catch (error) {
         return res.status(500).json({ error: 'Something went wrong' });
+    }
+});
+
+app.post('/api/createNote', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    const { title, content } = req.body;
+
+    try {
+        await createNote(title, content, req.user.id);
+        return res.status(200).json({ message: 'Note created successfully' });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ error: error.message });
     }
 });
 

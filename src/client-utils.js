@@ -55,4 +55,22 @@ async function logout(token, setLoading) {
     }
 }
 
-export { checkToken, getUser, getNotes, logout };
+async function deleteNote(token, id, setNotes, setLoading) {
+    try {
+        const response = await axios.delete(`http://localhost:5000/api/deleteNote/${id}`, { headers: {
+            'Authorization': `Bearer ${token}`
+        }});
+        console.log(response.data);
+        setNotes(prevNotes => {
+            return prevNotes.filter(note => {
+                return note.id !== id;
+            });
+        });
+    } catch (error) {
+        console.log(error.response.data);
+    } finally {
+        setLoading(false);
+    }
+}
+
+export { checkToken, getUser, getNotes, logout, deleteNote };

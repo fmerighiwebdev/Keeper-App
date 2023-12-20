@@ -26,8 +26,6 @@ function Dashboard() {
         setIsCreateActive(true);
     }
 
-    
-
     if (loading) {
         return ( 
             <main className="loading-page">
@@ -51,10 +49,10 @@ function Dashboard() {
                                         {notes.length > 0 ? (
                                             <>
                                                 {notes.map(note => (
-                                                    <Note title={note.title} content={note.content} key={note.id} />
+                                                    <Note title={note.title} content={note.content} key={note.id} id={note.id} setNotes={setNotes} />
                                                 ))}
                                             </>
-                                        ) : <p>You don't have any notes yet</p>}
+                                        ) : <p className="no-notes">You don't have any notes yet. <br></br> Start by creating one.</p>}
                                     </div>
                                 </>
                             ) : 'Errore nel caricare i dati'}

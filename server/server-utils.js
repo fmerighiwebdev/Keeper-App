@@ -26,4 +26,8 @@ async function getNotes(user_id) {
     return results.rows;
 }
 
-export { findUser, findUserById, createUser, createNote, getNotes };
+async function deleteNote(id) {
+    await db.query('DELETE FROM notes WHERE id = $1', [id]);
+}
+
+export { findUser, findUserById, createUser, createNote, getNotes, deleteNote };

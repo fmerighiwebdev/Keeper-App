@@ -17,7 +17,8 @@
 .create-btn {
     position: fixed;
     bottom: 30px;
-    right: 200px;
+    left: 50%;
+    transform: translateX(-50%);
     border: none;
     background-color: var(--primary-color);
     width: 70px;
@@ -171,9 +172,17 @@
     border-radius: 30px;
 }
 
-@media screen and (max-width: 1200px) {
-    .create-btn {
-        bottom: 30px;
-        right: 30px;
-    }
+.note-header button {
+    border: none;
+    background-color: transparent;
+    color: rgb(75, 75, 75);
+    cursor: pointer;
+}
+
+.no-notes {
+    text-align: center;
+    font-weight: 300;
+    color: rgb(75, 75, 75);
+    font-family: var(--ff);
+    margin-top: 5rem;
 }

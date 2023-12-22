@@ -55,7 +55,7 @@ async function logout(token, setLoading) {
     }
 }
 
-async function deleteNote(token, id, setNotes, setLoading) {
+async function deleteNote(token, id, setNotes) {
     try {
         const response = await axios.delete(`http://localhost:5000/api/deleteNote/${id}`, { headers: {
             'Authorization': `Bearer ${token}`
@@ -68,9 +68,27 @@ async function deleteNote(token, id, setNotes, setLoading) {
         });
     } catch (error) {
         console.log(error.response.data);
-    } finally {
-        setLoading(false);
     }
 }
 
-export { checkToken, getUser, getNotes, logout, deleteNote };
+async function editNote(token, id, title, content, setNotes) {
+    try {
+        const response = await axios.put(`http://localhost:5000/api/editNote/${id}`, { title: title, content: content }, { headers: {
+            'Authorization': `Bearer ${token}`
+        }});
+        console.log(response.data);
+        setNotes(prevNotes => {
+            return prevNotes.map(note => {
+                if (note.id === id) {
+                    note.title = title;
+                    note.content = content;
+                }
+                return note;
+            });
+        });
+    } catch (error) {
+        console.log(error.response.data);
+    }
+}
+
+export { checkToken, getUser, getNotes, logout, deleteNote, editNote };

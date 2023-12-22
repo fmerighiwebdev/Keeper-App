@@ -7,7 +7,7 @@ import TipsAndUpdatesTwoToneIcon from '@mui/icons-material/TipsAndUpdatesTwoTone
 import { checkToken } from "../client-utils.js";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-import { logout } from "../client-utils.js";
+import { logout, getUser } from "../client-utils.js";
 
 import '../styles/Header.css';
 import 'animate.css';
@@ -16,11 +16,13 @@ function Header(props) {
     const [isMenuActive, setMenuActive] = useState(false);
     const [isProfileActive, setProfileActive] = useState(false);
     const token = sessionStorage.getItem('token');
+    const [user, setUser] = useState(null);
     const [isTokenValid, setIsTokenValid] = useState(null);
     const [loading, setLoading] = useState(true);
 
     React.useEffect(() => {
         checkToken(token, setIsTokenValid, setLoading);
+        getUser(token, setUser, setLoading);
     }, [token]);
 
     function handleHamClick() {
@@ -49,7 +51,7 @@ function Header(props) {
 
     return (
         <>
-        <header>
+        <header className="shadow-sm">
             <Container>
                 <nav>
                     <div>
@@ -66,8 +68,10 @@ function Header(props) {
                         <button onClick={handleProfileClick} className="profile-icon">
                             <AccountCircleIcon style={{ fontSize: '3rem', color: '#f4b400' }} />
                         </button>
+                        
                         {isProfileActive ? (
-                            <div className="drop-menu shadow">
+                            <div className="drop-menu shadow animate__animated animate__bounceInDown">
+                                <p>{user.email}</p>
                                 <Link onClick={handleLogoutClick} to={'/'} className="dropdown-item">Log Out</Link>
                             </div>
                         ) : null}

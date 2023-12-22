@@ -9,7 +9,7 @@ import JWTStrategy from 'passport-jwt';
 import session from 'express-session';
 import jwt from 'jsonwebtoken';
 
-import { findUser, findUserById, createUser, createNote, getNotes, deleteNote } from './server-utils.js';
+import { findUser, findUserById, createUser, createNote, getNotes, deleteNote, editNote } from './server-utils.js';
 
 // Definizione istanze
 const app = express();
@@ -36,7 +36,7 @@ db.connect((err) => {
 
 // CORS 
 const corsOptions = {
-    origin: ['http://localhost:3000', 'http://192.168.1.33:3000'],
+    origin: ['http://localhost:3000', 'http://192.168.1.33:3000', 'http://192.168.56.1:3000' ,'*'],
     optionsSuccessStatus: 200,
 };
 
@@ -167,10 +167,25 @@ app.get('/api/getNotes', passport.authenticate('jwt', { session: false }), async
     }
 });
 
+// Richiesta DELETE per eliminare una nota
+// Utilizza la strategia di autenticazione "jwt" e richiede il token nell'header della richiesta
 app.delete('/api/deleteNote/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
     try {
         await deleteNote(req.params.id);
         return res.status(200).json({ message: 'Note deleted successfully' });
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+
+// Richiesta PUT per modificare una nota
+// Utilizza la strategia di autenticazione "jwt" e richiede il token nell'header della richiesta
+app.put('/api/editNote/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    const { title, content } = req.body;
+
+    try {
+        await editNote(title, content, req.params.id);
+        return res.status(200).json({ message: 'Note edited successfully' });
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }

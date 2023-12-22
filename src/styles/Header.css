@@ -70,10 +70,22 @@ nav {
 .drop-menu {
     position: absolute;
     top: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1rem;
     right: 0;
     padding: .75rem 1.25rem;
     background-color: white;
     border-radius: 5px;
+}
+
+.drop-menu p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(75, 75, 75, 0.795);
+    font-family: var(--ff);
+    margin: 0;
 }
 
 .dropdown-item {
@@ -81,6 +93,7 @@ nav {
     color: rgba(187, 1, 1, 0.795);
     border-radius: 5px;
     font-weight: 400;
+    width: fit-content;
     padding: 0 .5rem 0 .5rem;
     font-family: var(--ff);
     transition: all .3s ease-in-out;

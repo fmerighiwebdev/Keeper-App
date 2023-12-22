@@ -27,12 +27,3 @@ footer {
     font-weight: 400;
     transition: all .3s ease-in-out;
 }
-
-@media (min-width: 1044px) {
-    footer {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        left: 0;
-    }
-}

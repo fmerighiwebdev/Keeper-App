@@ -2,7 +2,7 @@ import React from "react";
 import FailedAuth from './FailedAuth';
 import "../styles/Dashboard.css";
 import { Container } from "react-bootstrap";
-import CreateIcon from '@mui/icons-material/Create';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { checkToken, getUser, getNotes } from "../client-utils";
 import CreateForm from "./CreateForm";
 import Note from "./Note";
@@ -56,14 +56,14 @@ function Dashboard() {
                                     </div>
                                 </>
                             ) : 'Errore nel caricare i dati'}
-                            <button className="create-btn shadow" onClick={handleCreateClick}><CreateIcon style={{ color: 'white', fontSize: '2rem' }} /></button>
+                            <button className="create-btn shadow" onClick={handleCreateClick}><AddCircleIcon style={{ color: 'white', fontSize: '2.5rem' }} /></button>
                         </section>
                     </>
                 ) : <FailedAuth /> }
             </Container>
             {isCreateActive ? (
                 <div className="overlay-container">
-                    <div className="overlay shadow">
+                    <div className="overlay shadow animate__animated animate__backInUp animate__faster">
                         <CreateForm setIsActive={setIsCreateActive} />
                     </div>
                 </div>

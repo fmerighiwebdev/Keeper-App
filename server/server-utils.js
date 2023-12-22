@@ -30,4 +30,8 @@ async function deleteNote(id) {
     await db.query('DELETE FROM notes WHERE id = $1', [id]);
 }
 
-export { findUser, findUserById, createUser, createNote, getNotes, deleteNote };
+async function editNote(title, content, id) {
+    await db.query('UPDATE notes SET title = $1, content = $2 WHERE id = $3', [title, content, id]);
+}   
+
+export { findUser, findUserById, createUser, createNote, getNotes, deleteNote, editNote };

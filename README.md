@@ -35,7 +35,7 @@ Gli endpoint gestiti sono i seguenti:
 
 ## Come avviare l'app
 
-Dopo averlo scaricato, nella root del progetto, eseguire i seguenti comandi al terminale:
+Dopo averlo scaricato, nella root del progetto, copiare il contenuto del file `.env.example` in un nuovo file chiamato `.env`, successivamente, eseguire i seguenti comandi al terminale:
 
 ### `npm install (o npm i)`
 

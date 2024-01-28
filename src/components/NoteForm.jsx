@@ -4,7 +4,7 @@ import axios from "axios";
 
 import '../styles/Dashboard.css';
 
-function CreateForm(props) {
+function NoteForm(props) {
 
     const token = sessionStorage.getItem('token');
     const [note, setNote] = React.useState({
@@ -54,19 +54,19 @@ function CreateForm(props) {
 
     return (
         <div>
-        <div className="create-note-header">
-            <h1>{props.type === "update" ? `Edit note: ${props.title}` : 'Create a note'}</h1>
+        <div className="note-form-header">
+            <h1>{props.type === "update" ? `Modifica nota: ${props.title}` : 'Crea nota'}</h1>
             <button onClick={handleCloseClick}>
                 <CloseIcon style={{ fontSize: '2rem' }} />
             </button>
         </div>
-            <form className="create-form" onSubmit={props.type === 'update' ? handleEdit : handleCreate}>
-                <input type="text" placeholder="Title" name="title" onChange={handleChanges} />
-                <textarea placeholder="Content" name="content" onChange={handleChanges}></textarea>
-                <button>{props.type === 'update' ? 'Update' : 'Create'}</button>
+            <form className="note-form" onSubmit={props.type === 'update' ? handleEdit : handleCreate}>
+                <input type="text" placeholder="Titolo" name="title" value={props.title} onChange={handleChanges} />
+                <textarea placeholder="Contenuto" name="content" onChange={handleChanges}></textarea>
+                <button>{props.type === 'update' ? 'Modifica' : 'Crea'}</button>
             </form>
         </div>
     );
 }
 
-export default CreateForm;
+export default NoteForm;

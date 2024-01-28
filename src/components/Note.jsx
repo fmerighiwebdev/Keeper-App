@@ -2,7 +2,7 @@ import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { deleteNote } from '../client-utils';
-import CreateForm from './CreateForm';
+import NoteForm from './NoteForm';
 
 function Note(props) {
     const [isEditActive, setIsEditActive] = React.useState(false);
@@ -45,9 +45,9 @@ function Note(props) {
             <p>{props.content}</p>
         </div>
         {isEditActive ? (
-            <div className="overlay-container" style={{ backgroundColor: 'transparent', overflow: 'hidden' }}>
+            <div className="overlay-container" style={{ backgroundColor: 'transparent' }}>
                 <div className="overlay shadow animate__animated animate__backInUp animate__faster">
-                    <CreateForm setIsActive={setIsEditActive} type="update" title={props.title} id={props.id} />
+                    <NoteForm setIsActive={setIsEditActive} type="update" title={props.title} id={props.id} />
                 </div>
             </div>
         ) : null}

@@ -8,9 +8,9 @@ import "../styles/Auth.css";
 function Signup() {
     return (
         <section className="auth-section">
-            <div className="auth-card shadow">
+            <div className="auth-card shadow-lg fade-in-up">
                 <AuthForm type="signup" />
-                <p>Already have an account? <Link className="redirect-link" to="/login">Log In</Link></p>
+                <p>Sei già in possesso di un account? <Link className="redirect-link" to="/login">Accedi</Link></p>
             </div>
         </section>
     );

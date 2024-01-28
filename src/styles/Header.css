@@ -1,151 +1,175 @@
-header {
-    background-color: white;
-    position: fixed;
-    width: 100%;
-    z-index: 999;
-    top: 0;
-    left: 0;
-}
-
-nav {
-    display: flex;
-    position: relative;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 0;
-    font-family: var(--ff);
-}
-
-.header-logo {
-    font-size: 1.5rem;
-    font-weight: 300;
-    text-decoration: none;
+.dashboard span {
     color: var(--primary-color);
 }
 
-.header-links {
+.dashboard-header {
     display: flex;
-    gap: 1rem;
+    justify-content: space-between;
     align-items: center;
-    list-style: none;
+    margin-bottom: 3rem;
 }
 
-.navbar-link {
-    text-decoration: none;
+.dashboard-header h1 {
+    font-size: 3rem;
     font-weight: 400;
-    transition: all .3s ease-in-out;
-    width: 100px;
-    text-align: center;
-    border-radius: 5px;
-    padding: .5rem;
-}
-
-.navbar-link:nth-of-type(1) {
-    color: #f4b400;
-    font-weight: 500;
-}
-
-.navbar-link:nth-of-type(2) {
-    color: white;
-    background-color: var(--primary-color);
-    border-radius: 5px;
-    padding: 0.5rem;
-}
-
-.navbar-link:nth-of-type(2):hover {
-    border-radius: 30px;
-}
-
-.hamburger {
-    display: none;
-    cursor: pointer;
-}
-
-.profile-icon {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-}
-
-.drop-menu {
-    position: absolute;
-    top: 70px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 1rem;
-    right: 0;
-    padding: .75rem 1.25rem;
-    background-color: white;
-    border-radius: 5px;
-}
-
-.drop-menu p {
-    font-size: 1rem;
-    font-weight: 300;
-    color: rgba(75, 75, 75, 0.795);
-    font-family: var(--ff);
+    color: var(--text-app-color);
     margin: 0;
 }
 
-.dropdown-item {
-    text-decoration: none;
-    color: rgba(187, 1, 1, 0.795);
+.dashboard-header-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.dashboard-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    font-size: 1.25rem;
     border-radius: 5px;
-    font-weight: 400;
-    width: fit-content;
-    padding: 0 .5rem 0 .5rem;
+    padding: 0.875rem 0;
+    width: 150px;
+    text-align: center;
+    text-decoration: none;
     font-family: var(--ff);
-    transition: all .3s ease-in-out;
+    font-weight: var(--fw-500);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
-.dropdown-item:hover {
-    background-color: rgba(255, 95, 95, 0.295);
-    color: rgba(187, 1, 1, 0.795);
+.logout-btn {
+    border: none;
+    text-decoration: none;
+    background-color: transparent;
+    font-size: 1.25rem;
+    color: rgb(255, 100, 100);
+    cursor: pointer;
 }
 
-@media screen and (max-width: 576px) {
-    .bar {
-        width: 25px;
-        height: 2px;
-        background-color: black;
-        transition: all .3s ease-in-out;
-    }
-    
-    .bar + .bar {
-        margin-top: 5px;
+.dashboard-nav-links {
+    display: flex;
+    gap: 1rem;
+    padding-right: 1rem;
+    border-right: 1px solid rgb(105, 105, 105);
+}
+
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+    z-index: 999;
+}
+
+@media screen and (max-width: 992px) {
+    .hamburger-menu {
+        display: block;
     }
 
-    .header-links {
+    .dashboard-header-links {
         display: none;
     }
 
-    .hamburger {
-        display: block;
-        margin-right: 20px;
+    .line {
+        width: 30px;
+        height: 2px;
+        background-color: rgb(105, 105, 105);
+        transition: all 0.3s ease-in-out;
     }
 
-    .bar:nth-of-type(1).active {
-        transform: rotate(45deg) translate(4px, 6px);
+    .line:nth-child(1).active {
+        transform: translateY(12px) rotate(45deg);
     }
-    .bar:nth-of-type(2).active {
+    .line:nth-child(2).active {
         opacity: 0;
     }
-    .bar:nth-of-type(3).active {
-        transform: rotate(-45deg) translate(4px, -5px);
+    .line:nth-child(3).active {
+        transform: translateY(-12px) rotate(-45deg);
+    }
+    
+    .line + .line {
+        margin-top: 10px;
     }
 
-    .mobile-menu {
-        background-color: white;
+    .side-bar-links {
         position: fixed;
-        top: 68px;
-        z-index: 999;
-        left: 0;
-        width: 100%;
+        z-index: 100;
         display: flex;
-        justify-content: center;
+        animation: slideFromRight 0.5s ease-in-out;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10rem 0 3rem 0;
+        top: 0;
+        right: 0;
+        width: 50%;
+        height: 100vh;
+        background-color: rgb(50, 50, 50);
+    }
+
+    .sidebar-btn {
+        display: block;
+        background-color: transparent;
+        border: none;
+        font-size: 1.25rem;
+        color: white;
+        cursor: pointer;
+        background-color: var(--primary-color);
+        padding: 1rem 0;
+        width: 90%;
+        margin: 0 auto;
+        text-align: center;
+        text-decoration: none;
+        font-family: var(--ff);
+        font-weight: var(--fw-500);
+        border-radius: 5px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .upper-side {
+        display: flex;
+        flex-direction: column;
         gap: 1rem;
-        padding: 1rem 0 1.5rem 0;
-        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logout-side-btn {
+        display: block;
+        background-color: transparent;
+        border: none;
+        font-size: 1.25rem;
+        color: rgb(255, 100, 100);
+        cursor: pointer;
+        width: 100%;
+        text-align: center;
+        text-decoration: none;
+        font-family: var(--ff);
+        font-weight: var(--fw-500);
+        transition: all 0.2s ease-in-out;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .hamburger-menu {
+        margin-right: 10px;
+    }
+}
+
+@keyframes slideFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideBack {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
     }
 }

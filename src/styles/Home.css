@@ -1,101 +1,170 @@
-.home-section {
-    min-height: 100vh;
-    margin: 10rem 0 4rem 0;
-}
-
-.home-title {
-    font-size: clamp(2rem, 1.824rem + 0.723vw, 2.5rem);
-    font-weight: 600;
-    letter-spacing: 1px;
-    font-family: var(--ff);
-    margin-bottom: 2rem;
-}
-
-.home-title span {
-    color: var(--primary-color);
-}
-
-.home-desc {
-    font-size: 1rem;
-    font-weight: 300;
-    letter-spacing: 1px;
-    font-family: var(--ff);
-}
-
-.home-btn {
-    display: inline-block;
-    margin-top: 2.5rem;
-    width: 50%;
-    text-align: center;
-    padding: 1rem;
-    text-transform: uppercase;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-    font-size: 1.125rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    font-family: var(--ff);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background-color: var(--primary-color);
-    color: white;
-    text-decoration: none;
-}
-
-.home-btn:hover {
-    border-radius: 30px;
-}
-
-.loading-page {
+.home-section, .loading-page {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     height: 100vh;
-    background-color: rgba(255, 255, 255, 0.3);
 }
 
-.features {
-    margin-top: 7rem;
+.logo {
+    width: 375px;
 }
 
-.feature-icon {
+.home-title {
+    font-size: 5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.home-links {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 2rem;
+}
+
+.signup-btn {
     background-color: var(--primary-color);
-    border-radius: 10px;
+    color: white;
+    border: none;
+    font-size: 1.25rem;
+    border-radius: 5px;
+    padding: 0.875rem 0;
+    width: 150px;
+    text-align: center;
+    text-decoration: none;
+    font-family: var(--ff);
+    font-weight: var(--fw-500);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
-.feature h3 {
-    font-size: 1.5rem;
+.login-btn {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    font-size: 1.25rem;
+    border-radius: 5px;
+    padding: 0.875rem 0;
+    width: 150px;
+    text-align: center;
+    text-decoration: none;
+    font-family: var(--ff);
+    font-weight: var(--fw-500);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.signup-btn:hover, .login-btn:hover {
+    border-radius: 30px;
+}
+
+.already-logged {
+    margin-top: 2rem;
+    color: var(--text-app-color);
+}
+
+.already-logged p {
+    font-size: 1.125rem;
+    font-weight: 400;
+    text-align: center;
+    margin-top: .5rem;
+}
+
+.already-logged span {
+    color: var(--primary-color);
     font-weight: 500;
-    color: rgb(75, 75, 75);
+}
+
+.go-dashboard-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    font-size: 1.25rem;
+    border-radius: 5px;
+    padding: 0.875rem 0;
+    width: 300px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
     font-family: var(--ff);
+    font-weight: var(--fw-500);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
-.feature p {
-    font-size: 1rem;
-    font-weight: 300;
-    color: rgb(75, 75, 75);
-    font-family: var(--ff);
-}
-
-@media (max-width: 992px) {
-    .home-section {
-        margin: 8rem 0 4rem 0;
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
     }
-
-    .features {
-        margin-top: 4rem;
-    }
-
-    .home-img {
-        margin-top: 2rem;
-        width: min(500px, 90%);
+    to {
+        opacity: 1;
     }
 }
 
-@media (max-width: 768px) {
-    .home-btn {
-        width: 100%;
-        font-size: 1rem;
+@keyframes bounceIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
     }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.bounce-in {
+    opacity: 0;
+    animation: bounceIn cubic-bezier(0.25, 0.1, 0.28, 1.29) 1s forwards;
+    -webkit-animation: bounceIn cubic-bezier(0.25, 0.1, 0.28, 1.29) 1s forwards;
+    -moz-animation: bounceIn cubic-bezier(0.25, 0.1, 0.28, 1.29) 1s forwards;
+    -o-animation: bounceIn cubic-bezier(0.25, 0.1, 0.28, 1.29) 1s forwards;
+    -ms-animation: bounceIn cubic-bezier(0.25, 0.1, 0.28, 1.29) 1s forwards;
+}
+
+.fade-in-up {
+    opacity: 0;
+    animation: fadeInUp ease 1s forwards;
+    -webkit-animation: fadeInUp ease 1s forwards;
+    -moz-animation: fadeInUp ease 1s forwards;
+    -o-animation: fadeInUp ease 1s forwards;
+    -ms-animation: fadeInUp ease 1s forwards;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn ease 1s forwards;
+    -webkit-animation: fadeIn ease 1s forwards;
+    -moz-animation: fadeIn ease 1s forwards;
+    -o-animation: fadeIn ease 1s forwards;
+    -ms-animation: fadeIn ease 1s forwards;
+}
+
+.delay-1 {
+    animation-delay: .5s;
+}
+.delay-2 {
+    animation-delay: 1s;
+}
+.delay-3 {
+    animation-delay: 1.5s;
+}
+.delay-4 {
+    animation-delay: 2s;
+}
+.delay-btn {
+    animation-delay: 2.25s;
 }

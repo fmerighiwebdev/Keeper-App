@@ -1,6 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100;8..144,200;8..144,300;8..144,400;8..144,500;8..144,600;8..144,700;8..144,800;8..144,900;8..144,1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;500;600;700&display=swap');
+
+*, *::after, *::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 :root {
-    --primary-color: #f4b400;
-    --ff: 'Roboto Flex', sans-serif;
+  --primary-color: #70d343;
+  --background-color: #202020;
+  --text-app-color: #b3b3b3;
+  --text-note-color: #ffffff;
+
+  --ff: 'Josefin Sans', sans-serif;
+  --fw-100: 100;
+  --fw-200: 200;
+  --fw-300: 300;
+  --fw-400: 400;
+  --fw-500: 500;
+  --fw-600: 600;
+  --fw-700: 700;
+}
+
+body {
+  background-color: var(--background-color) !important;
+  font-family: 'Josefin Sans', sans-serif !important;
 }

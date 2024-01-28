@@ -1,48 +1,36 @@
-import React from "react";
-import { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Container } from 'react-bootstrap';
-import TipsAndUpdatesTwoToneIcon from '@mui/icons-material/TipsAndUpdatesTwoTone';
-import { checkToken } from "../client-utils.js";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-
-import { logout, getUser } from "../client-utils.js";
+import Sidebar from './Sidebar';
 
 import '../styles/Header.css';
-import 'animate.css';
 
-function Header(props) {
-    const [isMenuActive, setMenuActive] = useState(false);
-    const [isProfileActive, setProfileActive] = useState(false);
+import { logout, getUser } from '../client-utils';
+
+function Header( { setIsTokenValid, type }) {
+
     const token = sessionStorage.getItem('token');
-    const [user, setUser] = useState(null);
-    const [isTokenValid, setIsTokenValid] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = React.useState(true);
+    const [isMenuActive, setIsMenuActive] = React.useState(false);
+    const [user, setUser] = React.useState(null);
 
     React.useEffect(() => {
-        checkToken(token, setIsTokenValid, setLoading);
         getUser(token, setUser, setLoading);
     }, [token]);
 
-    function handleHamClick() {
-        setMenuActive(!isMenuActive);
-    }
-
-    function handleProfileClick() {
-        setProfileActive(!isProfileActive);
-    }
-
     function handleLogoutClick() {
         logout(token, setLoading);
-        setProfileActive(false);
         setIsTokenValid(false);
     }
 
+    function handleMenuClick() {
+        setIsMenuActive(!isMenuActive);
+    }
+
     if (loading) {
-        return ( 
+        return (
             <main className="loading-page">
-                <div className="spinner-grow" style={{ width: '2rem', height: '2rem', color: 'orange'}} role="status">
+                <div className="spinner-grow" style={{ width: '2rem', height: '2rem', color: 'greenyellow' }} role="status">
                     <span className="visually-hidden">Loading...</span>
                 </div>
             </main>
@@ -51,51 +39,24 @@ function Header(props) {
 
     return (
         <>
-        <header className="shadow-sm">
-            <Container>
-                <nav>
-                    <div>
-                        <Link className="header-logo" to="/">Keeper App <TipsAndUpdatesTwoToneIcon /></Link>
-                    </div>
-                    {props.type === "home" && !isTokenValid ? (
-                        <div className="header-links">
-                            <Link className="navbar-link" to="/login">Log In</Link>
-                            <Link className="navbar-link" to="/signup">Sign Up</Link>
-                        </div>
-                    ) : null}
-                    {isTokenValid ? (
-                        <>
-                        <button onClick={handleProfileClick} className="profile-icon">
-                            <AccountCircleIcon style={{ fontSize: '3rem', color: '#f4b400' }} />
-                        </button>
-                        
-                        {isProfileActive ? (
-                            <div className="drop-menu shadow animate__animated animate__bounceInDown">
-                                <p>{user.email}</p>
-                                <Link onClick={handleLogoutClick} to={'/'} className="dropdown-item">Log Out</Link>
-                            </div>
-                        ) : null}
-                        </>
-                    ) : null}
-                    {props.type === "home" && !isTokenValid ? (
-                        <div onClick={handleHamClick} className="hamburger">
-                            <div className={isMenuActive ? "bar active" : "bar"}></div>
-                            <div className={isMenuActive ? "bar active" : "bar"}></div>
-                            <div className={isMenuActive ? "bar active" : "bar"}></div>
-                        </div>
-                    ) : null}
-                </nav>
-            </Container>
-        </header>
-        {isMenuActive && props.type === "home" ? (
-            <div className="mobile-menu animate__animated animate__fadeInDown animate__faster">
-                <Link className="navbar-link" to="/login">Log In</Link>
-                <Link className="navbar-link" to="/signup">Sign Up</Link>
+        <div class="dashboard-header">
+            <h1>Ciao, <span>{user && user.username}</span></h1>
+            <div className="dashboard-header-links">
+                <div className="dashboard-nav-links">
+                    <Link to="/dashboard" className="dashboard-btn">Principale</Link>
+                    <Link to="/dashboard/work" className="dashboard-btn">Lavoro</Link>
+                </div>
+                <Link onClick={handleLogoutClick} to={'/'} className="logout-btn">Log Out</Link>
             </div>
-        ) : null}
+            <div className="hamburger-menu" onClick={handleMenuClick}>
+                <div className={isMenuActive ? "line active" : "line"}></div>
+                <div className={isMenuActive ? "line active" : "line"}></div>
+                <div className={isMenuActive ? "line active" : "line"}></div>
+            </div>
+        </div>
+        {isMenuActive ? <Sidebar setIsTokenValid={setIsTokenValid} setIsMenuActive={setIsMenuActive} isMenuActive={isMenuActive} type={type} /> : null}
         </>
     );
-
 }
 
 export default Header;

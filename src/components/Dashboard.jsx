@@ -1,24 +1,26 @@
 import React from "react";
+
 import FailedAuth from './FailedAuth';
+import Note from "./Note";
+import NoteForm from "./NoteForm";
+import Header from "./Header";
+
 import "../styles/Dashboard.css";
 import { Container } from "react-bootstrap";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { checkToken, getUser, getNotes } from "../client-utils";
-import CreateForm from "./CreateForm";
-import Note from "./Note";
 
-function Dashboard() {
+import { checkToken, getNotes } from "../client-utils";
+
+function Dashboard({ type }) {
 
     const token = sessionStorage.getItem('token');
     const [isTokenValid, setIsTokenValid] = React.useState(null);
     const [loading, setLoading] = React.useState(true);
-    const [user, setUser] = React.useState(null);
     const [isCreateActive, setIsCreateActive] = React.useState(false);
     const [notes, setNotes] = React.useState([]);
 
     React.useEffect(() => {
         checkToken(token, setIsTokenValid, setLoading);
-        getUser(token, setUser, setLoading);
         getNotes(token, setNotes, setLoading);
     }, [token]);
 
@@ -27,9 +29,9 @@ function Dashboard() {
     }
 
     if (loading) {
-        return ( 
+        return (
             <main className="loading-page">
-                <div className="spinner-grow" style={{ width: '2rem', height: '2rem', color: 'orange'}} role="status">
+                <div className="spinner-grow" style={{ width: '2rem', height: '2rem', color: 'greenyellow' }} role="status">
                     <span className="visually-hidden">Loading...</span>
                 </div>
             </main>
@@ -39,32 +41,41 @@ function Dashboard() {
     return (
         <main>
             <Container>
-                { isTokenValid ? (
+                {isTokenValid ? (
                     <>
                         <section className="dashboard">
-                            {user ? (
+                            {type ? (
                                 <>
-                                    <h1>Hi, <span>{user.username}</span></h1>
-                                    <div className="notes-grid">
-                                        {notes.length > 0 ? (
-                                            <>
-                                                {notes.map(note => (
-                                                    <Note title={note.title} content={note.content} key={note.id} id={note.id} setNotes={setNotes} />
-                                                ))}
-                                            </>
-                                        ) : <p className="no-notes">You don't have any notes yet. <br></br> Start by creating one.</p>}
-                                    </div>
+                                    <Header setIsTokenValid={setIsTokenValid} type={type} />
+                                    <h1>Type: {type}</h1>
                                 </>
-                            ) : 'Errore nel caricare i dati'}
+                            ) : (
+                                <>
+                                    {notes ? (
+                                    <>
+                                        <Header setIsTokenValid={setIsTokenValid} />
+                                        <div className="notes-grid">
+                                            {notes.length > 0 ? (
+                                                <>
+                                                    {notes.map(note => (
+                                                        <Note title={note.title} content={note.content} key={note.id} id={note.id} setNotes={setNotes} />
+                                                    ))}
+                                                </>
+                                            ) : <p className="no-notes">Non hai ancora creato nessuna nota. <br></br> Inizia creandone una!</p>}
+                                        </div>
+                                    </>
+                                    ) : 'Errore nel caricare i dati'}
+                                </>
+                            )}
                             <button className="create-btn shadow" onClick={handleCreateClick}><AddCircleIcon style={{ color: 'white', fontSize: '2.5rem' }} /></button>
                         </section>
                     </>
-                ) : <FailedAuth /> }
+                ) : <FailedAuth />}
             </Container>
             {isCreateActive ? (
                 <div className="overlay-container">
-                    <div className="overlay shadow animate__animated animate__backInUp animate__faster">
-                        <CreateForm setIsActive={setIsCreateActive} />
+                    <div className="overlay shadow-lg animate__animated animate__backInUp animate__faster">
+                        <NoteForm setIsActive={setIsCreateActive} />
                     </div>
                 </div>
             ) : null}

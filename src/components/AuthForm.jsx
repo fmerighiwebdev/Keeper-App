@@ -73,9 +73,8 @@ function AuthForm(props) {
             <Alert onClose={() => {handleCloseClick()}} severity="error" className='mb-4'>{error}</Alert>
           )}
           <div className="d-flex justify-content-center">
-            <h1 className='icon-yellow'>
-              {props.type === 'login' ? 'Log In' : 'Sign Up'}{' '}
-              <TipsAndUpdatesTwoToneIcon className='icon-yellow' style={{ fontSize: '3.5rem' }}/>
+            <h1 className='form-title'>
+              {props.type === 'login' ? 'Log In' : 'Sign Up'}
             </h1>
           </div>
           <form className="auth-form" onSubmit={handleSubmit}>

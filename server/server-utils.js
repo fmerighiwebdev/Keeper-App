@@ -11,7 +11,6 @@ async function findUserById(id) {
     return results.rows[0];
 }
 
-// Funzione che crea un utente nel database
 async function createUser(email, username, password) {
     await db.query('INSERT INTO users (email, username, password) VALUES ($1, $2, $3)', [email, username, password]);
 }

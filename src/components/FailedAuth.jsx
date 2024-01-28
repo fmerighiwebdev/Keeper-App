@@ -8,7 +8,8 @@ function FailedAuth() {
     return (
         <main className="failed-auth">
             <img src={sessionExpImg} alt="Session Expired" />
-            <p>The session has expired. <br></br> Please <Link className="redirect-link" to='/login'>log in</Link></p>
+            <p>La sessione è scaduta. <br></br> Si prega di <Link className="redirect-link" to='/login'>accedere</Link></p>
+            <Link className="redirect-link" to='/'>Torna alla Home</Link>
         </main>
     );
 }

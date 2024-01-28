@@ -4,16 +4,17 @@ import axios from "axios";
 
 import '../styles/Dashboard.css';
 
-function NoteForm(props) {
+function NoteForm({ setIsActive, method, title, id, type}) {
 
     const token = sessionStorage.getItem('token');
     const [note, setNote] = React.useState({
         title: '',
-        content: ''
+        content: '',
+        type: type
     });
 
     function handleCloseClick() {
-        props.setIsActive(false);
+        setIsActive(false);
     }
 
     function handleChanges(event) {
@@ -29,7 +30,7 @@ function NoteForm(props) {
             });
             console.log(response.data);
 
-            props.setIsActive(false);
+            setIsActive(false);
             window.location.reload();
         } catch (error) {
             console.log(error);
@@ -40,12 +41,12 @@ function NoteForm(props) {
         event.preventDefault();
 
         try {
-            const response = await axios.put(`http://localhost:5000/api/editNote/${props.id}`, note, { 
+            const response = await axios.put(`http://localhost:5000/api/editNote/${id}`, note, { 
                 headers: { Authorization: `Bearer ${token}` } 
             });
             console.log(response.data);
 
-            props.setIsActive(false);
+            setIsActive(false);
             window.location.reload();
         } catch (error) {
             console.log(error);
@@ -55,15 +56,15 @@ function NoteForm(props) {
     return (
         <div>
         <div className="note-form-header">
-            <h1>{props.type === "update" ? `Modifica nota: ${props.title}` : 'Crea nota'}</h1>
+            <h1>{method === "update" ? `Modifica nota: ${title}` : `Crea nota in ${type.toUpperCase()}`}</h1>
             <button onClick={handleCloseClick}>
                 <CloseIcon style={{ fontSize: '2rem' }} />
             </button>
         </div>
-            <form className="note-form" onSubmit={props.type === 'update' ? handleEdit : handleCreate}>
-                <input type="text" placeholder="Titolo" name="title" value={props.title} onChange={handleChanges} />
+            <form className="note-form" onSubmit={method === 'update' ? handleEdit : handleCreate}>
+                <input type="text" placeholder="Titolo" name="title" value={title} onChange={handleChanges} />
                 <textarea placeholder="Contenuto" name="content" onChange={handleChanges}></textarea>
-                <button>{props.type === 'update' ? 'Modifica' : 'Crea'}</button>
+                <button>{method === 'update' ? 'Modifica' : 'Crea'}</button>
             </form>
         </div>
     );

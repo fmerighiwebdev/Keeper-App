@@ -47,7 +47,7 @@ function Note(props) {
         {isEditActive ? (
             <div className="overlay-container" style={{ backgroundColor: 'transparent' }}>
                 <div className="overlay shadow animate__animated animate__backInUp animate__faster">
-                    <NoteForm setIsActive={setIsEditActive} type="update" title={props.title} id={props.id} />
+                    <NoteForm setIsActive={setIsEditActive} method="update" title={props.title} id={props.id} />
                 </div>
             </div>
         ) : null}

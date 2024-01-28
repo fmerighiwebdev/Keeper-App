@@ -145,10 +145,10 @@ app.post('/api/signup', async (req, res) => {
 // Richiesta POST per la creazione di una nota
 // Utilizza la strategia di autenticazione "jwt" e richiede il token nell'header della richiesta
 app.post('/api/createNote', passport.authenticate('jwt', { session: false }), async (req, res) => {
-    const { title, content } = req.body;
+    const { title, content, type } = req.body;
 
     try {
-        await createNote(title, content, req.user.id);
+        await createNote(title, content, req.user.id, type);
         return res.status(200).json({ message: 'Note created successfully' });
     } catch (error) {
         return res.status(500).json({ error: error.message });
@@ -158,8 +158,10 @@ app.post('/api/createNote', passport.authenticate('jwt', { session: false }), as
 // Richiesta GET per ottenere le note dell'utente
 // Utilizza la strategia di autenticazione "jwt" e richiede il token nell'header della richiesta
 app.get('/api/getNotes', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    const { type } = req.query;
+
     try {
-        const notes = await getNotes(req.user.id);
+        const notes = await getNotes(req.user.id, type);
         return res.status(200).json({ notes: notes });
     } catch (error) {
         console.log(error);

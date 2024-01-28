@@ -28,9 +28,9 @@ async function getUser(token, setUser, setLoading) {
     }
 }
 
-async function getNotes(token, setNotes, setLoading) {
+async function getNotes(token, setNotes, setLoading, type) {
     try {
-        const response = await axios.get(`http://localhost:5000/api/getNotes`, { headers: {
+        const response = await axios.get(`http://localhost:5000/api/getNotes?type=${type}`, { headers: {
             'Authorization': `Bearer ${token}`
         }});
         setNotes(response.data.notes);

@@ -25,7 +25,7 @@ function App() {
             </>
             }
           />
-          <Route path="/dashboard/*" element={<Dashboard />}/>
+          <Route path="/dashboard/*" element={<Dashboard type="principal" />}/>
           <Route path="/dashboard/work/*" element={<Dashboard type="work" />}/>
         </Routes>
     </Router>

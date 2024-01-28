@@ -39,7 +39,7 @@ function Header( { setIsTokenValid, type }) {
 
     return (
         <>
-        <div class="dashboard-header">
+        <div className="dashboard-header">
             <h1>Ciao, <span>{user && user.username}</span></h1>
             <div className="dashboard-header-links">
                 <div className="dashboard-nav-links">
@@ -54,7 +54,7 @@ function Header( { setIsTokenValid, type }) {
                 <div className={isMenuActive ? "line active" : "line"}></div>
             </div>
         </div>
-        {isMenuActive ? <Sidebar setIsTokenValid={setIsTokenValid} setIsMenuActive={setIsMenuActive} isMenuActive={isMenuActive} type={type} /> : null}
+        {isMenuActive ? <Sidebar setIsTokenValid={setIsTokenValid} setIsMenuActive={setIsMenuActive} isMenuActive={isMenuActive} /> : null}
         </>
     );
 }

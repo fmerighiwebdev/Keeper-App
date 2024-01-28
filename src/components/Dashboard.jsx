@@ -21,8 +21,8 @@ function Dashboard({ type }) {
 
     React.useEffect(() => {
         checkToken(token, setIsTokenValid, setLoading);
-        getNotes(token, setNotes, setLoading);
-    }, [token]);
+        getNotes(token, setNotes, setLoading, type);
+    }, [token, type]);
 
     function handleCreateClick() {
         setIsCreateActive(true);
@@ -44,29 +44,20 @@ function Dashboard({ type }) {
                 {isTokenValid ? (
                     <>
                         <section className="dashboard">
-                            {type ? (
+                            {notes ? (
                                 <>
-                                    <Header setIsTokenValid={setIsTokenValid} type={type} />
-                                    <h1>Type: {type}</h1>
+                                    <Header setIsTokenValid={setIsTokenValid} />
+                                    <div className="notes-grid">
+                                        {notes.length > 0 ? (
+                                            <>
+                                                {notes.map(note => (
+                                                    <Note title={note.title} content={note.content} key={note.id} id={note.id} setNotes={setNotes} type={type} />
+                                                ))}
+                                            </>
+                                        ) : <p className="no-notes">Non hai ancora creato nessuna nota. <br></br> Inizia creandone una!</p>}
+                                    </div>
                                 </>
-                            ) : (
-                                <>
-                                    {notes ? (
-                                    <>
-                                        <Header setIsTokenValid={setIsTokenValid} />
-                                        <div className="notes-grid">
-                                            {notes.length > 0 ? (
-                                                <>
-                                                    {notes.map(note => (
-                                                        <Note title={note.title} content={note.content} key={note.id} id={note.id} setNotes={setNotes} />
-                                                    ))}
-                                                </>
-                                            ) : <p className="no-notes">Non hai ancora creato nessuna nota. <br></br> Inizia creandone una!</p>}
-                                        </div>
-                                    </>
-                                    ) : 'Errore nel caricare i dati'}
-                                </>
-                            )}
+                            ) : 'Errore nel caricare i dati'}
                             <button className="create-btn shadow" onClick={handleCreateClick}><AddCircleIcon style={{ color: 'white', fontSize: '2.5rem' }} /></button>
                         </section>
                     </>
@@ -75,7 +66,7 @@ function Dashboard({ type }) {
             {isCreateActive ? (
                 <div className="overlay-container">
                     <div className="overlay shadow-lg animate__animated animate__backInUp animate__faster">
-                        <NoteForm setIsActive={setIsCreateActive} />
+                        <NoteForm setIsActive={setIsCreateActive} type={type} />
                     </div>
                 </div>
             ) : null}

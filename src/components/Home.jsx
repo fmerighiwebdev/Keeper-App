@@ -74,7 +74,7 @@ function Home() {
             </svg>
             <h1 className="home-title bounce-in delay-3">Keeper App</h1>
             {isTokenValid ? (
-                <div class="already-logged fade-in-up delay-4">
+                <div className="already-logged fade-in-up delay-4">
                     <Link to="/dashboard" className="go-dashboard-btn">Vai alla Dashboard</Link>
                     <p>Accesso eseguito come: <span>{user && user.username}</span></p>
                 </div>

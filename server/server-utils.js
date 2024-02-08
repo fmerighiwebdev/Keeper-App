@@ -15,12 +15,12 @@ async function createUser(email, username, password) {
     await db.query('INSERT INTO users (email, username, password) VALUES ($1, $2, $3)', [email, username, password]);
 }
 
-async function createNote(title, content, user_id, type) {
-    await db.query('INSERT INTO notes (title, content, user_id, type) VALUES ($1, $2, $3, $4)', [title, content, user_id, type]);
+async function createNote(title, content, user_id, category) {
+    await db.query('INSERT INTO notes (title, content, user_id, category) VALUES ($1, $2, $3, $4)', [title, content, user_id, category]);
 }
 
-async function getNotes(user_id, type) {
-    const results = await db.query('SELECT * FROM notes WHERE user_id = $1 AND type = $2', [user_id, type]);
+async function getNotes(user_id, category) {
+    const results = await db.query('SELECT * FROM notes WHERE user_id = $1 AND category = $2', [user_id, category]);
     return results.rows;
 }
 

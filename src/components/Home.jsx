@@ -80,9 +80,9 @@ function Home() {
                 </div>
             ) : (
                 <div className="home-links">
-                    <Link to="/login" className="login-btn fade-in-up delay-4">Login</Link>
-                    <Link to="/signup" className="signup-btn fade-in-up delay-btn">Signup</Link>
-                </div>
+                    <Link to="/login" className="login-btn fade-in-up delay-4">Accedi</Link>
+                    <Link to="/signup" className="signup-btn fade-in-up delay-btn">Registrati</Link>
+                </div> 
             )}
         </section>
     );

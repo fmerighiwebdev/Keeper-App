@@ -1,6 +1,6 @@
 import React from "react";
 
-import FailedAuth from './FailedAuth';
+import SessionExp from './SessionExp';
 import Note from "./Note";
 import NoteForm from "./NoteForm";
 import Header from "./Header";
@@ -11,7 +11,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 import { checkToken, getNotes } from "../client-utils";
 
-function Dashboard({ type }) {
+function Dashboard({ category }) {
 
     const token = sessionStorage.getItem('token');
     const [isTokenValid, setIsTokenValid] = React.useState(null);
@@ -21,8 +21,8 @@ function Dashboard({ type }) {
 
     React.useEffect(() => {
         checkToken(token, setIsTokenValid, setLoading);
-        getNotes(token, setNotes, setLoading, type);
-    }, [token, type]);
+        getNotes(token, setNotes, setLoading, category);
+    }, [token, category]);
 
     function handleCreateClick() {
         setIsCreateActive(true);
@@ -46,12 +46,12 @@ function Dashboard({ type }) {
                         <section className="dashboard">
                             {notes ? (
                                 <>
-                                    <Header setIsTokenValid={setIsTokenValid} />
+                                    <Header setIsTokenValid={setIsTokenValid} category={category} />
                                     <div className="notes-grid">
                                         {notes.length > 0 ? (
                                             <>
                                                 {notes.map(note => (
-                                                    <Note title={note.title} content={note.content} key={note.id} id={note.id} setNotes={setNotes} type={type} />
+                                                    <Note title={note.title} content={note.content} key={note.id} id={note.id} setNotes={setNotes} />
                                                 ))}
                                             </>
                                         ) : <p className="no-notes">Non hai ancora creato nessuna nota. <br></br> Inizia creandone una!</p>}
@@ -61,12 +61,12 @@ function Dashboard({ type }) {
                             <button className="create-btn shadow" onClick={handleCreateClick}><AddCircleIcon style={{ color: 'white', fontSize: '2.5rem' }} /></button>
                         </section>
                     </>
-                ) : <FailedAuth />}
+                ) : <SessionExp />}
             </Container>
             {isCreateActive ? (
                 <div className="overlay-container">
                     <div className="overlay shadow-lg animate__animated animate__backInUp animate__faster">
-                        <NoteForm setIsActive={setIsCreateActive} type={type} />
+                        <NoteForm setIsActive={setIsCreateActive} category={category} />
                     </div>
                 </div>
             ) : null}

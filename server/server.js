@@ -12,6 +12,7 @@ import jwt from 'jsonwebtoken';
 import { findUser, findUserById, createUser, createNote, getNotes, deleteNote, editNote } from './server-utils.js';
 
 // Definizione istanze
+
 const app = express();
 const port = process.env.PORT || 5000;
 dotenv.config();
@@ -34,9 +35,10 @@ db.connect((err) => {
     }
 });
 
-// CORS 
+// CORS
+
 const corsOptions = {
-    origin: ['http://localhost:3000', 'http://192.168.1.33:3000', 'http://192.168.56.1:3000' ,'*'],
+    origin: ['http://localhost:3000'],
     optionsSuccessStatus: 200,
 };
 
@@ -70,18 +72,18 @@ passport.use("login", new LocalStrategy({ usernameField: 'email', passwordField:
         const user = await findUser(email);
 
         if (!user) {
-            return done(null, false, { message: 'User not found' });
+            return done(null, false, { message: 'Utente non trovato' });
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
 
         if (!isPasswordValid) {
-            return done(null, false, { message: 'Wrong password' });
+            return done(null, false, { message: 'Password errata' });
         }
 
-        return done(null, user, { message: 'User logged in successfully' });
+        return done(null, user, { message: 'Utente autenticato con successo' });
     } catch (error) {
-        return done(error, false, { message: 'Something went wrong' });
+        return done(error, false, { message: 'Qualcosa è andato storto' });
     }
 }));
 
@@ -123,8 +125,20 @@ app.post('/api/login', (req, res, next) => {
 app.post('/api/signup', async (req, res) => {
     const { email, username, password, confirmPassword } = req.body;
 
+    if (!email || !username || !password || !confirmPassword) {
+        return res.status(400).json({ error: 'Compila tutti i campi' });
+    }
+
+    if (!email.includes('@')) {
+        return res.status(400).json({ error: 'Email non valida' });
+    }
+
+    if (password.length < 4) {
+        return res.status(400).json({ error: 'La password deve essere di almeno 4 caratteri' });
+    }
+
     if (password !== confirmPassword) {
-        return res.status(400).json({ error: 'Passwords do not match' });
+        return res.status(400).json({ error: 'Le password non corrispondono' });
     }
 
     try {
@@ -133,23 +147,23 @@ app.post('/api/signup', async (req, res) => {
         if (!userAlreadyExists) {
             const hash = await bcrypt.hash(password, 10);
             await createUser(email, username, hash);
-            return res.status(200).json({ message: 'User created successfully' });
+            return res.status(200).json({ message: 'Utente creato con successo' });
         } else {
-            return res.status(400).json({ error: 'User already exists' });
+            return res.status(400).json({ error: 'Utente già esistente' });
         }
     } catch (error) {
-        return res.status(500).json({ error: 'Something went wrong' });
+        return res.status(500).json({ error: 'Qualcosa è andato storto' });
     }
 });
 
 // Richiesta POST per la creazione di una nota
 // Utilizza la strategia di autenticazione "jwt" e richiede il token nell'header della richiesta
 app.post('/api/createNote', passport.authenticate('jwt', { session: false }), async (req, res) => {
-    const { title, content, type } = req.body;
+    const { title, content, category } = req.body;
 
     try {
-        await createNote(title, content, req.user.id, type);
-        return res.status(200).json({ message: 'Note created successfully' });
+        await createNote(title, content, req.user.id, category);
+        return res.status(200).json({ message: 'Nota creata con successo' });
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }
@@ -158,10 +172,10 @@ app.post('/api/createNote', passport.authenticate('jwt', { session: false }), as
 // Richiesta GET per ottenere le note dell'utente
 // Utilizza la strategia di autenticazione "jwt" e richiede il token nell'header della richiesta
 app.get('/api/getNotes', passport.authenticate('jwt', { session: false }), async (req, res) => {
-    const { type } = req.query;
+    const { category } = req.query;
 
     try {
-        const notes = await getNotes(req.user.id, type);
+        const notes = await getNotes(req.user.id, category);
         return res.status(200).json({ notes: notes });
     } catch (error) {
         console.log(error);
@@ -174,7 +188,7 @@ app.get('/api/getNotes', passport.authenticate('jwt', { session: false }), async
 app.delete('/api/deleteNote/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
     try {
         await deleteNote(req.params.id);
-        return res.status(200).json({ message: 'Note deleted successfully' });
+        return res.status(200).json({ message: 'Nota eliminata con successo' });
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }
@@ -187,7 +201,7 @@ app.put('/api/editNote/:id', passport.authenticate('jwt', { session: false }), a
 
     try {
         await editNote(title, content, req.params.id);
-        return res.status(200).json({ message: 'Note edited successfully' });
+        return res.status(200).json({ message: 'Nota modificata con successo' });
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }
@@ -207,19 +221,19 @@ app.get('/api/logout', passport.authenticate('jwt', { session: false }), (req, r
             return res.status(500).json({ error: error.message });
         }
     });
-    res.status(200).json({ message: 'User logged out successfully' });
+    res.status(200).json({ message: 'Utente uscito con successo' });
 });
 
 // Richiesta GET per la validazione del token
 // Utilizza la strategia di autenticazione "jwt" e richiede il token nell'header della richiesta
 app.get('/api/validateToken', passport.authenticate('jwt', { session: false }), (req, res) => {
     try {
-        res.status(200).json({ message: 'Token is valid' });
+        res.status(200).json({ message: 'Token valido' });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
 app.listen(port, '0.0.0.0', () => {
-    console.log(`Server is listening on port ${port}`);
+    console.log(`Server in ascolto sulla porta ${port}`);
 });

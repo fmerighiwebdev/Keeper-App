@@ -25,8 +25,8 @@ function App() {
             </>
             }
           />
-          <Route path="/dashboard/*" element={<Dashboard type="principal" />}/>
-          <Route path="/dashboard/work/*" element={<Dashboard type="work" />}/>
+          <Route path="/dashboard/*" element={<Dashboard category="principale" />}/>
+          <Route path="/dashboard/work/*" element={<Dashboard category="lavoro" />}/>
         </Routes>
     </Router>
   );

@@ -7,6 +7,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 3rem;
+    gap: 2rem;
 }
 
 .dashboard-header h1 {
@@ -22,10 +23,26 @@
     align-items: center;
 }
 
-.dashboard-btn {
+.dashboard-btn-active {
     background-color: var(--primary-color);
     color: white;
     border: none;
+    font-size: 1.25rem;
+    border-radius: 5px;
+    padding: 0.875rem 0;
+    width: 150px;
+    text-align: center;
+    text-decoration: none;
+    font-family: var(--ff);
+    font-weight: var(--fw-500);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.dashboard-btn {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
     font-size: 1.25rem;
     border-radius: 5px;
     padding: 0.875rem 0;
@@ -105,14 +122,31 @@
         background-color: rgb(50, 50, 50);
     }
 
-    .sidebar-btn {
+    .sidebar-btn-active {
         display: block;
-        background-color: transparent;
         border: none;
         font-size: 1.25rem;
         color: white;
         cursor: pointer;
         background-color: var(--primary-color);
+        padding: 1rem 0;
+        width: 90%;
+        margin: 0 auto;
+        text-align: center;
+        text-decoration: none;
+        font-family: var(--ff);
+        font-weight: var(--fw-500);
+        border-radius: 5px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .sidebar-btn {
+        display: block;
+        border: 1px solid var(--primary-color);
+        font-size: 1.25rem;
+        color: var(--primary-color);
+        cursor: pointer;
+        background-color: transparent;
         padding: 1rem 0;
         width: 90%;
         margin: 0 auto;

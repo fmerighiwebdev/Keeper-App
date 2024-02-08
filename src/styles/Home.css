@@ -168,3 +168,7 @@
 .delay-btn {
     animation-delay: 2.25s;
 }
+
+.fast {
+    animation-duration: .5s;
+}

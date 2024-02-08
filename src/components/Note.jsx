@@ -1,8 +1,11 @@
 import React from 'react';
+
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { deleteNote } from '../client-utils';
+
 import NoteForm from './NoteForm';
+
+import { deleteNote } from '../client-utils';
 
 function Note(props) {
     const [isEditActive, setIsEditActive] = React.useState(false);
@@ -24,7 +27,6 @@ function Note(props) {
     function handleDeleteClick() {
         deleteNote(token, props.id, props.setNotes)
     }
-
 
     return (
         <>

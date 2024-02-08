@@ -5,7 +5,7 @@ import '../styles/Header.css';
 
 import { logout } from '../client-utils';
 
-function Sidebar({ setIsTokenValid, setIsMenuActive , type }) {
+function Sidebar({ setIsTokenValid, category }) {
 
     const token = sessionStorage.getItem('token');
     const [loading, setLoading] = React.useState(false);
@@ -14,10 +14,6 @@ function Sidebar({ setIsTokenValid, setIsMenuActive , type }) {
         setLoading(true);
         logout(token, setLoading);
         setIsTokenValid(false);
-    }
-
-    function handleMenuTypeClick() {
-        setIsMenuActive(false);
     }
 
     if (loading) {
@@ -33,10 +29,10 @@ function Sidebar({ setIsTokenValid, setIsMenuActive , type }) {
     return (
         <aside className="side-bar-links slide-from-right shadow-lg">
             <div class="upper-side">
-                <Link to="/dashboard" className="sidebar-btn" onClick={handleMenuTypeClick}>Principale</Link>
-                <Link to="/dashboard/work" className="sidebar-btn" onClick={handleMenuTypeClick}>Lavoro</Link>
+                <Link to="/dashboard" className={category === "principale" ? "sidebar-btn-active" : "sidebar-btn"} >Principale</Link>
+                <Link to="/dashboard/work" className={category === "lavoro" ? "sidebar-btn-active" : "sidebar-btn"} >Lavoro</Link>
             </div>
-            <Link onClick={handleLogoutClick} to={'/'} className="logout-side-btn">Log Out</Link>
+            <Link onClick={handleLogoutClick} to={'/'} className="logout-side-btn">Esci</Link>
         </aside>
     );
 }

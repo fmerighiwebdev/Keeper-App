@@ -7,7 +7,7 @@ import { logout } from '../client-utils';
 
 function Sidebar({ setIsTokenValid, category }) {
 
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     const [loading, setLoading] = React.useState(false);
 
     function handleLogoutClick() {

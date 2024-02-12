@@ -7,7 +7,7 @@ import { checkToken, getUser } from "../client-utils.js";
 
 function Home() {
 
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     const [isTokenValid, setIsTokenValid] = React.useState(null);
     const [user, setUser] = React.useState(null);
     const [loading, setLoading] = React.useState(true);

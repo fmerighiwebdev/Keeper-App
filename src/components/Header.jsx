@@ -9,7 +9,7 @@ import { logout, getUser } from '../client-utils';
 
 function Header( { setIsTokenValid, category }) {
 
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     const [loading, setLoading] = React.useState(true);
     const [isMenuActive, setIsMenuActive] = React.useState(false);
     const [user, setUser] = React.useState(null);

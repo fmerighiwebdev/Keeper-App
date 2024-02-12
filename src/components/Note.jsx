@@ -9,7 +9,7 @@ import { deleteNote } from '../client-utils';
 
 function Note(props) {
     const [isEditActive, setIsEditActive] = React.useState(false);
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     const [isHovered, setIsHovered] = React.useState(false);
 
     function handleMouseOver() {

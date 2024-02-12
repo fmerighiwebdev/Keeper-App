@@ -24,49 +24,54 @@ const db = new pg.Client({
     port: 5432,
     password: process.env.DB_PASSWORD
 });
+
 export default db;
 
 // Connessione al database
 db.connect((err) => {
     if (err) {
-        console.error('Connection error', err.stack)
+        console.error('Errore di connessione', err.stack)
     } else {
-        console.log('Connected to Keeper-App Database')
+        console.log('Connesso al database Keeper-App')
     }
 });
 
 // CORS
-
 const corsOptions = {
     origin: ['http://localhost:3000'],
     optionsSuccessStatus: 200,
 };
 
 // Middlewares
+
 app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(logger);
+
 // Serializzazione e deserializzazione dell'utente
 passport.serializeUser((user, done) => {
-    console.log('Serializing user', user)
     done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
-    console.log('Deserializing user', id)
     const user = await findUserById(id);
     done(null, user);
 });
 
 // Strategie di autenticazione
+
 passport.use("login", new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, async (email, password, done) => {
     try {
         const user = await findUser(email);
@@ -178,7 +183,6 @@ app.get('/api/getNotes', passport.authenticate('jwt', { session: false }), async
         const notes = await getNotes(req.user.id, category);
         return res.status(200).json({ notes: notes });
     } catch (error) {
-        console.log(error);
         return res.status(500).json({ error: error.message });
     }
 });
@@ -221,7 +225,7 @@ app.get('/api/logout', passport.authenticate('jwt', { session: false }), (req, r
             return res.status(500).json({ error: error.message });
         }
     });
-    res.status(200).json({ message: 'Utente uscito con successo' });
+    res.status(200).json({ message: 'Utente disconnesso con successo' });
 });
 
 // Richiesta GET per la validazione del token
@@ -233,6 +237,11 @@ app.get('/api/validateToken', passport.authenticate('jwt', { session: false }), 
         res.status(500).json({ error: error.message });
     }
 });
+
+function logger(req, res, next) {
+    console.log(`Richiesta ${req.method} per ${req.url}`);
+    next();
+}
 
 app.listen(port, '0.0.0.0', () => {
     console.log(`Server in ascolto sulla porta ${port}`);

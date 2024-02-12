@@ -32,7 +32,7 @@ function AuthForm(props) {
 
             response = await axios.post('http://localhost:5000/api/login', formData);
 
-            sessionStorage.setItem('token', response.data.token);
+            localStorage.setItem('token', response.data.token);
 
             navigate('/dashboard');
           } else if (props.type === 'signup') {

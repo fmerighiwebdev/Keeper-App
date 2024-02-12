@@ -13,7 +13,7 @@ import { checkToken, getNotes } from "../client-utils";
 
 function Dashboard({ category }) {
 
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     const [isTokenValid, setIsTokenValid] = React.useState(null);
     const [loading, setLoading] = React.useState(true);
     const [isCreateActive, setIsCreateActive] = React.useState(false);

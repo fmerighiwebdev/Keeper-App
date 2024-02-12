@@ -7,7 +7,7 @@ import { createNote, editNote } from "../client-utils";
 
 function NoteForm({ setIsActive, method, title, id, category}) {
 
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     const [note, setNote] = React.useState({
         title: '',
         content: '',

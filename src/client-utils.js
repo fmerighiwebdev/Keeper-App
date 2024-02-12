@@ -54,7 +54,7 @@ async function logout(token, setLoading) {
             'Authorization': `Bearer ${token}`
         }});
 
-        sessionStorage.removeItem('token');
+        localStorage.removeItem('token');
         console.log(response.data);
     } catch (error) {
         console.log(error.response.data);

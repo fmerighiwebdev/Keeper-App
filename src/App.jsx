@@ -10,23 +10,25 @@ import Footer from './components/Footer';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Dashboard from './components/Dashboard';
+import NotFound from './components/NotFound';
 
 function App() {
 
   return (
     <Router>
         <Routes>
-          <Route path="/login/*" element={<Login />}/>
-          <Route path="/signup/*" element={<Signup />}/>
-          <Route path="/*" element={
+          <Route path="/login" element={<Login />}/>
+          <Route path="/signup" element={<Signup />}/>
+          <Route exact path="/" element={
             <>
               <Home />
               <Footer />
             </>
             }
           />
-          <Route path="/dashboard/*" element={<Dashboard category="principale" />}/>
-          <Route path="/dashboard/work/*" element={<Dashboard category="lavoro" />}/>
+          <Route path="/dashboard" element={<Dashboard category="principale" />}/>
+          <Route path="/dashboard/work" element={<Dashboard category="lavoro" />}/>
+          <Route path='*' element={<NotFound />}/>
         </Routes>
     </Router>
   );

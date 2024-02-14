@@ -12,7 +12,6 @@ import jwt from 'jsonwebtoken';
 import { findUser, findUserById, createUser, createNote, getNotes, deleteNote, editNote } from './server-utils.js';
 
 // Definizione istanze
-
 const app = express();
 const port = process.env.PORT || 5000;
 dotenv.config();
@@ -72,7 +71,6 @@ passport.deserializeUser(async (id, done) => {
 });
 
 // Strategie di autenticazione
-
 passport.use("login", new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, async (email, password, done) => {
     try {
         const user = await findUser(email);

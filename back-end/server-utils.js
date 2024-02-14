@@ -1,4 +1,4 @@
-import db from './server.js';
+import db from './index.js';
 
 async function findUser(email) {
     try {

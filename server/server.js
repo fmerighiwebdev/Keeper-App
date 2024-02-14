@@ -38,12 +38,13 @@ db.connect((err) => {
 
 // CORS
 const corsOptions = {
-    origin: ['http://localhost:3000'],
-    optionsSuccessStatus: 200,
+    origin: ['http://localhost:3000', 'http://192.168.0.102:3000', 'http://192.168.56.1:3000', '*'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    optionsSuccessStatus: 200
 };
 
 // Middlewares
-
 app.use(cors(corsOptions));
 
 app.use(express.json());
@@ -243,6 +244,6 @@ function logger(req, res, next) {
     next();
 }
 
-app.listen(port, '0.0.0.0', () => {
+app.listen(port, () => {
     console.log(`Server in ascolto sulla porta ${port}`);
 });

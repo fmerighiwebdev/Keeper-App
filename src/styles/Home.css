@@ -1,4 +1,13 @@
-.home-section, .loading-page {
+.home-section {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    padding-top: 2rem;
+}
+
+.loading-page {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,11 +16,11 @@
 }
 
 .logo {
-    width: 375px;
+    width: min(300px, 90%);
 }
 
 .home-title {
-    font-size: 5rem;
+    font-size: clamp(3rem, 2.295rem + 2.893vw, 5rem);
     font-weight: 700;
     color: var(--primary-color);
     margin-top: 1rem;

@@ -37,7 +37,7 @@ db.connect((err) => {
 
 // CORS
 const corsOptions = {
-    origin: ['http://localhost:3000', 'http://192.168.0.102:3000', 'http://192.168.56.1:3000', '*'],
+    origin: ['http://localhost:3000', 'https://keeper-app-brown-iota.vercel.app/', '*'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     optionsSuccessStatus: 200

@@ -65,7 +65,7 @@ function Dashboard({ category }) {
             </Container>
             {isCreateActive ? (
                 <div className="overlay-container">
-                    <div className="overlay shadow-lg animate__animated animate__backInUp animate__faster">
+                    <div className="overlay shadow-lg fade-in-up">
                         <NoteForm setIsActive={setIsCreateActive} category={category} />
                     </div>
                 </div>

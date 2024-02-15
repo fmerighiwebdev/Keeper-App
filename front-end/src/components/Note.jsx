@@ -30,7 +30,7 @@ function Note(props) {
 
     return (
         <>
-        <div className="note animate__animated animate__bounceIn" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+        <div className="note bounce-in" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
             <div className="note-header">
                 <h2>{props.title}</h2>
                 {isHovered ? (

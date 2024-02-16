@@ -1,9 +1,11 @@
 import axios from 'axios';
 
+const baseURL = 'https://416b-82-59-212-3.ngrok-free.app';
+
 async function checkToken(token, setIsTokenValid, setLoading) {
     try {
 
-        const response = await axios.get('http://localhost:5000/api/validateToken', { headers: {
+        const response = await axios.get(`${baseURL}/api/validateToken`, { headers: {
             'Authorization': `Bearer ${token}`,
         }});
 
@@ -20,7 +22,7 @@ async function checkToken(token, setIsTokenValid, setLoading) {
 async function getUser(token, setUser, setLoading) {
     try {
 
-        const response = await axios.get(`http://localhost:5000/api/user`, { headers: {
+        const response = await axios.get(`${baseURL}/api/user`, { headers: {
             'Authorization': `Bearer ${token}`
         }});
 
@@ -35,7 +37,7 @@ async function getUser(token, setUser, setLoading) {
 async function getNotes(token, setNotes, setLoading, category) {
     try {
 
-        const response = await axios.get(`http://localhost:5000/api/getNotes?category=${category}`, { headers: {
+        const response = await axios.get(`${baseURL}/api/getNotes?category=${category}`, { headers: {
             'Authorization': `Bearer ${token}`
         }});
 
@@ -50,7 +52,7 @@ async function getNotes(token, setNotes, setLoading, category) {
 async function logout(token, setLoading) {
     try {
 
-        const response = await axios.get(`http://localhost:5000/api/logout`, { headers: {
+        const response = await axios.get(`${baseURL}/api/logout`, { headers: {
             'Authorization': `Bearer ${token}`
         }});
 
@@ -66,7 +68,7 @@ async function logout(token, setLoading) {
 async function deleteNote(token, id, setNotes) {
     try {
 
-        const response = await axios.delete(`http://localhost:5000/api/deleteNote/${id}`, { headers: {
+        const response = await axios.delete(`${baseURL}/api/deleteNote/${id}`, { headers: {
             'Authorization': `Bearer ${token}`
         }});
 
@@ -84,7 +86,7 @@ async function deleteNote(token, id, setNotes) {
 async function editNote(token, id, note, setIsActive) {
     try {
 
-        const response = await axios.put(`http://localhost:5000/api/editNote/${id}`, note, { 
+        const response = await axios.put(`${baseURL}/api/editNote/${id}`, note, { 
             headers: { Authorization: `Bearer ${token}` } 
         });
         
@@ -99,7 +101,7 @@ async function editNote(token, id, note, setIsActive) {
 
 async function createNote(token, note, setIsActive) {
     try {
-        const response = await axios.post('http://localhost:5000/api/createNote', note, {
+        const response = await axios.post(`${baseURL}/api/createNote`, note, {
             headers: { Authorization: `Bearer ${token}` }
         });
         console.log(response.data);

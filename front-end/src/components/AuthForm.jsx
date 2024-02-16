@@ -6,7 +6,7 @@ import Alert from '@mui/material/Alert';
 
 function AuthForm(props) {
     const navigate = useNavigate();
-    // Stato che contiene i dati del form
+    const baseURL = 'https://416b-82-59-212-3.ngrok-free.app';
     const [formData, setFormData] = useState({
         email: '',
         username: '',
@@ -30,14 +30,14 @@ function AuthForm(props) {
     
           if (props.type === 'login') {
 
-            response = await axios.post('http://localhost:5000/api/login', formData);
+            response = await axios.post(`${baseURL}/api/login`, formData);
 
             localStorage.setItem('token', response.data.token);
 
             navigate('/dashboard');
           } else if (props.type === 'signup') {
 
-            response = await axios.post('http://localhost:5000/api/signup', formData);
+            response = await axios.post(`${baseURL}/api/signup`, formData);
             
             navigate('/login');
           }

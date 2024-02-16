@@ -37,7 +37,7 @@ db.connect((err) => {
 
 // CORS
 const corsOptions = {
-    origin: ['http://localhost:3000', '*'],
+    origin: ['http://localhost:3000', 'http://192.168.1.21:3000', 'http://192.168.56.1:3000', '*'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     optionsSuccessStatus: 200
@@ -242,6 +242,6 @@ function logger(req, res, next) {
     next();
 }
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
     console.log(`Server in ascolto sulla porta ${port}`);
 });

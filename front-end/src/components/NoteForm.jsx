@@ -22,24 +22,24 @@ function NoteForm({ setIsActive, method, title, id, category}) {
         setNote({...note, [event.target.name]: event.target.value});
     }
 
-    async function handleCreate(event) {
+    function handleCreate(event) {
         event.preventDefault();
         createNote(token, note, setIsActive);
     }
 
-    async function handleEdit(event) {
+    function handleEdit(event) {
         event.preventDefault();
         editNote(token, id, note, setIsActive);
     }
 
     return (
         <div>
-        <div className="note-form-header">
-            <h1>{method === "update" ? `Modifica nota: ${title}` : `Crea nota in ${category.toUpperCase()}`}</h1>
-            <button onClick={handleCloseClick}>
-                <CloseIcon style={{ fontSize: '2rem' }} />
-            </button>
-        </div>
+            <div className="note-form-header">
+                <h1>{method === "update" ? `Modifica nota: ${title}` : `Crea nota in ${category.toUpperCase()}`}</h1>
+                <button onClick={handleCloseClick}>
+                    <CloseIcon style={{ fontSize: '2rem' }} />
+                </button>
+            </div>
             <form className="note-form" onSubmit={method === 'update' ? handleEdit : handleCreate}>
                 <input category="text" placeholder="Titolo" name="title" onChange={handleChanges} />
                 <textarea placeholder="Contenuto" name="content" onChange={handleChanges}></textarea>

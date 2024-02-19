@@ -7,7 +7,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 3rem;
-    gap: 2rem;
+    gap: 3rem;
 }
 
 .dashboard-header h1 {
@@ -114,7 +114,7 @@
         animation: slideFromRight 0.5s ease-in-out;
         flex-direction: column;
         justify-content: space-between;
-        padding: 10rem 0 10rem 0;
+        padding: 10rem 0 9.5rem 0;
         top: 0;
         right: 0;
         width: 50%;

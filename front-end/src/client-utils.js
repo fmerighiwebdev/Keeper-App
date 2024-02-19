@@ -83,31 +83,31 @@ async function deleteNote(token, id, setNotes) {
     }
 }
 
-async function editNote(token, id, note, setIsActive) {
+async function editNote(token, id, note, setNotes, setIsActive, setLoading, category) {
     try {
-
         const response = await axios.put(`${baseURL}/api/editNote/${id}`, note, { 
             headers: { Authorization: `Bearer ${token}` } 
         });
         
         console.log(response.data);
-
         setIsActive(false);
-        window.location.reload();
+
+        getNotes(token, setNotes, setLoading, category);
     } catch (error) {
         console.log(error);
     }
 }
 
-async function createNote(token, note, setIsActive) {
+async function createNote(token, note, setNotes, setIsActive, setLoading, category) {
     try {
         const response = await axios.post(`${baseURL}/api/createNote`, note, {
             headers: { Authorization: `Bearer ${token}` }
         });
-        console.log(response.data);
 
+        console.log(response.data);
         setIsActive(false);
-        window.location.reload();
+
+        getNotes(token, setNotes, setLoading, category);
     } catch (error) {
         console.log(error);
     }

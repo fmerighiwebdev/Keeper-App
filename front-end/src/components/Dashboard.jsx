@@ -51,7 +51,7 @@ function Dashboard({ category }) {
                                         {notes.length > 0 ? (
                                             <>
                                                 {notes.map(note => (
-                                                    <Note title={note.title} content={note.content} key={note.id} id={note.id} setNotes={setNotes} />
+                                                    <Note title={note.title} content={note.content} key={note.id} id={note.id} setNotes={setNotes} setLoading={setLoading} category={category} />
                                                 ))}
                                             </>
                                         ) : <p className="no-notes">Non hai ancora creato nessuna nota. <br></br> Inizia creandone una!</p>}
@@ -66,7 +66,7 @@ function Dashboard({ category }) {
             {isCreateActive ? (
                 <div className="overlay-container">
                     <div className="overlay shadow-lg fade-in-up">
-                        <NoteForm setIsActive={setIsCreateActive} category={category} />
+                        <NoteForm setNotes={setNotes} setIsActive={setIsCreateActive} setLoading={setLoading} category={category} />
                     </div>
                 </div>
             ) : null}

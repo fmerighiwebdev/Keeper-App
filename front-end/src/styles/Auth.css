@@ -82,12 +82,33 @@ label {
 }
 
 .error-alert {
-    background-color: rgba(255, 113, 113, 0.356) !important;
-    margin-bottom: 1rem;
+    background-color: rgba(255, 55, 55, 0.5) !important;
+    color: rgb(200, 200, 200) !important;
+    font-family: var(--ff) !important;
+}
+
+.alert-container {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 2.5rem;
+    overflow: hidden;
+    height: 75px;
+    z-index: 999;
+}
+
+.success-alert {
+    margin: 0 auto;
     text-align: center;
-    padding: .5rem 0;
-    border-radius: 5px;
-    color: black !important;
+    padding: .75rem;
+    border: none;
+    border-radius: 30px;
+    width: 300px;
+    background-color: rgba(55, 150, 55) !important;
+    color: rgb(200, 200, 200) !important;
     font-family: var(--ff) !important;
 }
 

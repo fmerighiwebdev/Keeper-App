@@ -15,11 +15,6 @@ function AuthForm(props) {
     });
 
     const [error, setError] = useState('');
-    const [show, setShow] = useState(true);
-
-    function handleCloseClick() {
-      setShow(false);
-    }
     
     // Funzione che gestisce l'invio del form
     async function handleSubmit(event) {
@@ -46,7 +41,6 @@ function AuthForm(props) {
         } catch (error) {
           if (error.response.data.error) {
             setError(error.response.data.error);
-            setShow(true);
           }
         }
 
@@ -67,8 +61,8 @@ function AuthForm(props) {
     // Renderizza il form
     return (
         <>
-          {error && show && (
-            <Alert onClose={() => {handleCloseClick()}} severity="error" className='mb-4 bounce-in fast error-alert'>{error}</Alert>
+          {error && (
+            <Alert onClose={() => setError('')} severity="error" className='mb-4 bounce-in fast error-alert'>{error}</Alert>
           )}
           <div className="d-flex justify-content-center">
             <h1 className='form-title'>

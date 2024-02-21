@@ -5,7 +5,7 @@ import '../styles/Dashboard.css';
 
 import { createNote, editNote } from "../client-utils";
 
-function NoteForm({ setIsActive, setNotes, setLoading, method, title, id, category}) {
+function NoteForm({ setIsActive, setSuccessMessage, setNotes, setLoading, method, title, id, category}) {
 
     const token = localStorage.getItem('token');
     const [note, setNote] = React.useState({
@@ -24,7 +24,7 @@ function NoteForm({ setIsActive, setNotes, setLoading, method, title, id, catego
 
     function handleCreate(event) {
         event.preventDefault();
-        createNote(token, note, setNotes, setIsActive, setLoading, category);
+        createNote(token, note, setNotes, setIsActive, setLoading, setSuccessMessage, category);
     }
 
     function handleEdit(event) {

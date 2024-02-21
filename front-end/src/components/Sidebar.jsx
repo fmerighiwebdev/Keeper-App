@@ -28,7 +28,7 @@ function Sidebar({ setIsTokenValid, category }) {
 
     return (
         <aside className="side-bar-links slide-from-right shadow-lg">
-            <div class="upper-side">
+            <div className="upper-side">
                 <Link to="/dashboard" className={category === "principale" ? "sidebar-btn-active" : "sidebar-btn"} >Principale</Link>
                 <Link to="/dashboard/work" className={category === "lavoro" ? "sidebar-btn-active" : "sidebar-btn"} >Lavoro</Link>
             </div>

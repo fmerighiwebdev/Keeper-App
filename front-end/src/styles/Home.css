@@ -135,6 +135,17 @@
     }
 }
 
+@keyframes fadeInDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 .bounce-in {
     opacity: 0;
     animation: bounceIn cubic-bezier(0.25, 0.1, 0.28, 1.29) 1s forwards;
@@ -151,6 +162,15 @@
     -moz-animation: fadeInUp ease 1s forwards;
     -o-animation: fadeInUp ease 1s forwards;
     -ms-animation: fadeInUp ease 1s forwards;
+}
+
+.fade-in-down {
+    opacity: 0;
+    animation: fadeInDown ease 1s forwards;
+    -webkit-animation: fadeInDown ease 1s forwards;
+    -moz-animation: fadeInDown ease 1s forwards;
+    -o-animation: fadeInDown ease 1s forwards;
+    -ms-animation: fadeInDown ease 1s forwards;
 }
 
 .fade-in {

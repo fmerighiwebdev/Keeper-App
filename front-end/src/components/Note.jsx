@@ -7,7 +7,7 @@ import NoteForm from './NoteForm';
 
 import { deleteNote } from '../client-utils';
 
-function Note({title, content, id, setNotes, setLoading, category}) {
+function Note({title, content, id, setNotes, setSuccessMessage, setLoading, category}) {
     const [isEditActive, setIsEditActive] = React.useState(false);
     const token = localStorage.getItem('token');
     const [isHovered, setIsHovered] = React.useState(false);
@@ -25,7 +25,7 @@ function Note({title, content, id, setNotes, setLoading, category}) {
     }
 
     function handleDeleteClick() {
-        deleteNote(token, id, setNotes)
+        deleteNote(token, id, setNotes, setSuccessMessage);
     }
 
     return (

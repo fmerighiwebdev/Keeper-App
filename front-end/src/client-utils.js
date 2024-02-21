@@ -41,7 +41,9 @@ async function getNotes(token, setNotes, setLoading, category) {
             'Authorization': `Bearer ${token}`
         }});
 
-        setNotes(response.data.notes);
+        const reversedNotes = response.data.notes.reverse();
+
+        setNotes(reversedNotes);
     } catch (error) {
         console.log(error.response.data);
     } finally {
@@ -65,14 +67,14 @@ async function logout(token, setLoading) {
     }
 }
 
-async function deleteNote(token, id, setNotes) {
+async function deleteNote(token, id, setNotes, setSuccessMessage) {
     try {
 
         const response = await axios.delete(`${baseURL}/api/deleteNote/${id}`, { headers: {
             'Authorization': `Bearer ${token}`
         }});
 
-        console.log(response.data);
+        setSuccessMessage(response.data.message);
         setNotes(prevNotes => {
             return prevNotes.filter(note => {
                 return note.id !== id;
@@ -89,25 +91,23 @@ async function editNote(token, id, note, setNotes, setIsActive, setLoading, cate
             headers: { Authorization: `Bearer ${token}` } 
         });
         
-        console.log(response.data);
-        setIsActive(false);
-
+        
         getNotes(token, setNotes, setLoading, category);
+        setIsActive(false);
     } catch (error) {
         console.log(error);
     }
 }
 
-async function createNote(token, note, setNotes, setIsActive, setLoading, category) {
+async function createNote(token, note, setNotes, setIsActive, setLoading, setSuccessMessage, category) {
     try {
         const response = await axios.post(`${baseURL}/api/createNote`, note, {
             headers: { Authorization: `Bearer ${token}` }
         });
 
-        console.log(response.data);
-        setIsActive(false);
-
         getNotes(token, setNotes, setLoading, category);
+        setIsActive(false);
+        setSuccessMessage(response.data.message);
     } catch (error) {
         console.log(error);
     }

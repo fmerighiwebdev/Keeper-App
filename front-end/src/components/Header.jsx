@@ -7,9 +7,9 @@ import '../styles/Header.css';
 
 import { logout, getUser } from '../client-utils';
 
-function Header( { setIsTokenValid, category }) {
-
+function Header({ setIsTokenValid, category }) {
     const token = localStorage.getItem('token');
+
     const [loading, setLoading] = React.useState(true);
     const [isMenuActive, setIsMenuActive] = React.useState(false);
     const [user, setUser] = React.useState(null);
@@ -58,7 +58,8 @@ function Header( { setIsTokenValid, category }) {
                             setIsTokenValid={setIsTokenValid} 
                             setIsMenuActive={setIsMenuActive} 
                             isMenuActive={isMenuActive} 
-                            category={category} /> : null}
+                            category={category} 
+                        /> : null}
         </>
     );
 }

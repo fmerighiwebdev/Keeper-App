@@ -1,4 +1,6 @@
 import React from "react";
+import { Container } from "react-bootstrap";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 import SessionExp from './SessionExp';
 import Note from "./Note";
@@ -6,19 +8,16 @@ import NoteForm from "./NoteForm";
 import Header from "./Header";
 
 import "../styles/Dashboard.css";
-import { Alert, Container } from "react-bootstrap";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 import { checkToken, getNotes } from "../client-utils";
 
 function Dashboard({ category }) {
-
     const token = localStorage.getItem('token');
+
     const [isTokenValid, setIsTokenValid] = React.useState(null);
     const [loading, setLoading] = React.useState(true);
     const [isCreateActive, setIsCreateActive] = React.useState(false);
     const [notes, setNotes] = React.useState([]);
-
     const [successMessage, setSuccessMessage] = React.useState('');
 
     React.useEffect(() => {
@@ -49,18 +48,29 @@ function Dashboard({ category }) {
                             {notes ? (
                                 <>
                                     <Header setIsTokenValid={setIsTokenValid} category={category} />
-                                    <div className="notes-grid">
-                                        {notes.length > 0 ? (
+                                    {notes.length > 0 ? (
+                                        <div className="notes-grid">
                                             <>
                                                 {notes.map(note => (
-                                                    <Note title={note.title} content={note.content} key={note.id} id={note.id} setSuccessMessage={setSuccessMessage} setNotes={setNotes} setLoading={setLoading} category={category} />
+                                                    <Note 
+                                                        title={note.title} 
+                                                        content={note.content} 
+                                                        key={note.id} 
+                                                        id={note.id} 
+                                                        setSuccessMessage={setSuccessMessage} 
+                                                        setNotes={setNotes} 
+                                                        setLoading={setLoading} 
+                                                        category={category} 
+                                                    />
                                                 ))}
                                             </>
-                                        ) : <p className="no-notes">Non hai ancora creato nessuna nota. <br></br> Inizia creandone una!</p>}
-                                    </div>
+                                        </div>
+                                    ) : <p className="no-notes">Non hai ancora creato nessuna nota. <br></br> Inizia creandone una!</p>}
                                 </>
-                            ) : 'Errore nel caricare i dati'}
-                            <button className="create-btn shadow" onClick={handleCreateClick}><AddCircleIcon style={{ color: 'white', fontSize: '2.5rem' }} /></button>
+                            ) : <p className="no-notes">Errore nel caricare i dati.</p>}
+                            <button className="create-btn shadow" onClick={handleCreateClick}>
+                                <AddCircleIcon style={{ color: 'white', fontSize: '2.5rem' }} />
+                            </button>
                         </section>
                     </>
                 ) : <SessionExp />}
@@ -68,14 +78,20 @@ function Dashboard({ category }) {
             {isCreateActive ? (
                 <div className="overlay-container">
                     <div className="overlay shadow-lg fade-in-up">
-                        <NoteForm setSuccessMessage={setSuccessMessage} setNotes={setNotes} setIsActive={setIsCreateActive} setLoading={setLoading} category={category} />
+                        <NoteForm 
+                            setSuccessMessage={setSuccessMessage} 
+                            setNotes={setNotes} 
+                            setIsActive={setIsCreateActive} 
+                            setLoading={setLoading} 
+                            category={category} 
+                        />
                     </div>
                 </div>
             ) : null}
             <div className="alert-container">
                 {successMessage ? (
                     <>
-                        <div className="success-alert bounce-in fast">
+                        <div className="success-alert fade-in-down fast">
                             <p className="mb-0">{successMessage}</p>
                         </div>
                         {setTimeout(() => {setSuccessMessage('')}, 5000)}

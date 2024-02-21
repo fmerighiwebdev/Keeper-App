@@ -12,7 +12,6 @@ import Dashboard from './components/Dashboard';
 import NotFound from './components/NotFound';
 
 function App() {
-
   return (
     <Router>
         <Routes>
@@ -31,7 +30,6 @@ function App() {
         </Routes>
     </Router>
   );
-
 }
 
 export default App;

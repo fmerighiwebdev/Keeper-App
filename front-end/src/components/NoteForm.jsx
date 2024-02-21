@@ -5,9 +5,9 @@ import '../styles/Dashboard.css';
 
 import { createNote, editNote } from "../client-utils";
 
-function NoteForm({ setIsActive, setSuccessMessage, setNotes, setLoading, method, title, id, category}) {
-
+function NoteForm({ setIsActive, setSuccessMessage, setNotes, setLoading, method, title, id, category }) {
     const token = localStorage.getItem('token');
+
     const [note, setNote] = React.useState({
         title: '',
         content: '',
@@ -30,6 +30,7 @@ function NoteForm({ setIsActive, setSuccessMessage, setNotes, setLoading, method
     function handleEdit(event) {
         event.preventDefault();
         editNote(token, id, note, setNotes, setIsActive, setLoading, category);
+        setSuccessMessage('Nota modificata con successo');
     }
 
     return (

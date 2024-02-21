@@ -7,16 +7,15 @@ import Alert from '@mui/material/Alert';
 function AuthForm(props) {
     const navigate = useNavigate();
     const baseURL = 'https://2d9b-82-59-212-3.ngrok-free.app';
+
     const [formData, setFormData] = useState({
         email: '',
         username: '',
         password: '',
         confirmPassword: '',
     });
-
     const [error, setError] = useState('');
     
-    // Funzione che gestisce l'invio del form
     async function handleSubmit(event) {
         event.preventDefault();
     
@@ -24,27 +23,21 @@ function AuthForm(props) {
           let response;
     
           if (props.type === 'login') {
-
             response = await axios.post(`${baseURL}/api/login`, formData);
-
             localStorage.setItem('token', response.data.token);
 
             navigate('/dashboard');
           } else if (props.type === 'signup') {
-
             response = await axios.post(`${baseURL}/api/signup`, formData);
             
             navigate('/login');
           }
-
-          console.log(response.data);
         } catch (error) {
           if (error.response.data.error) {
             setError(error.response.data.error);
           }
         }
 
-        // Resetta il form dopo l'invio
         setFormData({
           email: '',
           username: '',
@@ -52,13 +45,11 @@ function AuthForm(props) {
           confirmPassword: '',
         });
     };
-    
-    // Funzione che gestisce i cambiamenti dei campi del form
+
     function handleChanges(event) {
         setFormData({ ...formData, [event.target.name]: event.target.value });
     };
     
-    // Renderizza il form
     return (
         <>
           {error && (

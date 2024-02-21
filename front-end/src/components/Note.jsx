@@ -7,9 +7,10 @@ import NoteForm from './NoteForm';
 
 import { deleteNote } from '../client-utils';
 
-function Note({title, content, id, setNotes, setSuccessMessage, setLoading, category}) {
-    const [isEditActive, setIsEditActive] = React.useState(false);
+function Note({ title, content, id, setNotes, setSuccessMessage, setLoading, category }) {
     const token = localStorage.getItem('token');
+
+    const [isEditActive, setIsEditActive] = React.useState(false);
     const [isHovered, setIsHovered] = React.useState(false);
 
     function handleMouseOver() {
@@ -49,7 +50,16 @@ function Note({title, content, id, setNotes, setSuccessMessage, setLoading, cate
         {isEditActive ? (
             <div className="overlay-container">
                 <div className="overlay fade-in-up">
-                    <NoteForm setNotes={setNotes} setIsActive={setIsEditActive} setLoading={setLoading} category={category} method="update" title={title} id={id} />
+                    <NoteForm 
+                        setNotes={setNotes} 
+                        setIsActive={setIsEditActive} 
+                        setSuccessMessage={setSuccessMessage} 
+                        setLoading={setLoading} 
+                        category={category} 
+                        method="update" 
+                        title={title} 
+                        id={id} 
+                    />
                 </div>
             </div>
         ) : null}

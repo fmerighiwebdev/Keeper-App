@@ -6,8 +6,8 @@ import '../styles/Header.css';
 import { logout } from '../client-utils';
 
 function Sidebar({ setIsTokenValid, category }) {
-
     const token = localStorage.getItem('token');
+    
     const [loading, setLoading] = React.useState(false);
 
     function handleLogoutClick() {

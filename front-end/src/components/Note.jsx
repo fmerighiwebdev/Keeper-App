@@ -26,6 +26,7 @@ function Note({ title, content, id, setNotes, setSuccessMessage, setLoading, cat
     }
 
     function handleDeleteClick() {
+        setSuccessMessage('');
         deleteNote(token, id, setNotes, setSuccessMessage);
     }
 

@@ -143,7 +143,7 @@ label {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    height: 100vh;
     flex-direction: column;
 }
 
@@ -162,6 +162,12 @@ label {
 
 @media (max-width: 768px) {
     .auth-section {
-        height: 90vh;
+        height: 80vh;
+    }
+    .failed-auth {
+        height: 80vh;
+    }
+    .not-found {
+        height: 80vh;
     }
 }

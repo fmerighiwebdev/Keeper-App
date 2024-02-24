@@ -25,6 +25,14 @@ function Dashboard({ category }) {
         getNotes(token, setNotes, setLoading, category);
     }, [token, category]);
 
+    React.useEffect(() => {
+        const timeout = setTimeout(() => {
+            setSuccessMessage('');
+        }, 5000);
+
+        return () => clearTimeout(timeout);
+    }, [successMessage]);
+
     function handleCreateClick() {
         setIsCreateActive(true);
     }
@@ -94,7 +102,6 @@ function Dashboard({ category }) {
                         <div className="success-alert fade-in-down fast">
                             <p className="mb-0">{successMessage}</p>
                         </div>
-                        {setTimeout(() => {setSuccessMessage('')}, 5000)}
                     </>
                 ) : null}
             </div>

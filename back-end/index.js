@@ -35,16 +35,8 @@ db.connect((err) => {
     }
 });
 
-// CORS
-const corsOptions = {
-    origin: ['http://localhost:3000', 'http://172.20.10.2:3000', '*'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    optionsSuccessStatus: 200
-};
-
 // Middlewares
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

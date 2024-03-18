@@ -6,7 +6,7 @@ import Alert from '@mui/material/Alert';
 
 function AuthForm(props) {
     const navigate = useNavigate();
-    const baseURL = 'https://6786-79-54-106-236.ngrok-free.app';
+    const baseURL = 'https://keeper-app-be.onrender.com';
 
     const [formData, setFormData] = useState({
         email: '',

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'https://6786-79-54-106-236.ngrok-free.app';
+const baseURL = 'https://keeper-app-be.onrender.com';
 
 async function checkToken(token, setIsTokenValid, setLoading) {
     try {

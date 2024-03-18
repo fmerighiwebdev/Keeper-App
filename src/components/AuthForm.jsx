@@ -6,7 +6,7 @@ import Alert from '@mui/material/Alert';
 
 function AuthForm(props) {
     const navigate = useNavigate();
-    const baseURL = 'https://72c8-95-255-61-173.ngrok-free.app';
+    const baseURL = 'https://6786-79-54-106-236.ngrok-free.app';
 
     const [formData, setFormData] = useState({
         email: '',

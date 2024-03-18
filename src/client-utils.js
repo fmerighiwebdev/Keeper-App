@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'https://72c8-95-255-61-173.ngrok-free.app';
+const baseURL = 'https://6786-79-54-106-236.ngrok-free.app';
 
 async function checkToken(token, setIsTokenValid, setLoading) {
     try {
